@@ -8,6 +8,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 // import { getAdminDetailsAction } from "./actions/get-admin-details";
 
 import { db } from "./lib/db";
+import { getAdminDetails } from "./actions/admin";
 
 export const {
   handlers: { GET, POST },
@@ -28,33 +29,42 @@ export const {
       if (account?.provider !== "credentials") return true;
       return true;
     },
-    // async session({ token, user, session }) {
-    //   if (token.sub && token.email) {
-    //     /*const adminDetails = await getAdminDetailsAction(token.email);
-    //     if (!adminDetails) {
-    //       const userProfile = await getProfileAction(token.sub);
-    //       if (!userProfile) {
-    //         await createUserProfileAction(token.sub);
-    //       }
-    //     }*/
-    //   }
-    //   if (session.user && token.sub && token.email) {
-    //     /*const getUserByEmail = await getUserByEmailAction(token.email);
-    //     if (token.provider !== "credentials") {
-    //       return {
-    //         ...session,
-    //         user: {
-    //           ...session.user,
-    //           id: token.sub,
-    //           emailVerified: token.emailVerified,
-    //           provider: token.provider,
-    //           role: getUserByEmail?.role,
-    //         },
-    //       };
-    //     }*/
-    //   }
-    //   return session;
-    // },
+    async session({ token, user, session }) {
+      if (token.sub && token.email) {
+        const adminDetails = await getAdminDetails(token.sub)
+        if(adminDetails) {
+          return {
+            ...session,
+            user: {
+              ...adminDetails
+            }
+          }
+        }
+        /*const adminDetails = await getAdminDetailsAction(token.email);
+        if (!adminDetails) {
+          const userProfile = await getProfileAction(token.sub);
+          if (!userProfile) {
+            await createUserProfileAction(token.sub);
+          }
+        }*/
+      }
+      if (session.user && token.sub && token.email) {
+        /*const getUserByEmail = await getUserByEmailAction(token.email);
+        if (token.provider !== "credentials") {
+          return {
+            ...session,
+            user: {
+              ...session.user,
+              id: token.sub,
+              emailVerified: token.emailVerified,
+              provider: token.provider,
+              role: getUserByEmail?.role,
+            },
+          };
+        }*/
+      }
+      return session;
+    },
   },
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
