@@ -14,8 +14,8 @@ export interface EcommerceAppSliceTypes {
   setCollapsSidbar: (data: boolean) => void;
   // productsData: ProductTypes[] | [];
   // setProductsData: (data: ProductTypes[]) => void;
-  // toggleSheet?: boolean;
-  // setToggleSheet: (data: boolean) => void;
+  toggleSheet?: boolean;
+  setToggleSheet: (data: boolean) => void;
   // openModal: boolean;
   // setOpenModal: (data: boolean) => void;
   // viewingProductId: string;
@@ -66,10 +66,10 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   // setProductsData: (data: ProductTypes[]) => {
   //   set({ productsData: data });
   // },
-  // toggleSheet: false,
-  // setToggleSheet: (open: boolean) => {
-  //   set({ toggleSheet: open });
-  // },
+  toggleSheet: false,
+  setToggleSheet: (open: boolean) => {
+    set({ toggleSheet: open });
+  },
   // openModal: false,
   // setOpenModal: (open: boolean) => {
   //   set({ openModal: open });
