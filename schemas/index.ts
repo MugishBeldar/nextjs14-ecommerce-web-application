@@ -13,6 +13,18 @@ export const LoginSchema = z.object({
     .regex(/\d/, { message: "Password must contain at least one number" })
 });
 
+export const CategorySchema = z.object({
+  categoryName: z.string().min(1, {
+    message: "Category name required",
+  }),
+});
+
+export const CategorySchema = z.object({
+  categoryName: z.string().min(1, {
+    message: "Category name required",
+  }),
+});
+
 export const ProductSchema = z.object({
   productName: z.string().min(1, {
     message: "Product name required",

@@ -1,11 +1,11 @@
 // import { ProductTypes } from "@/types";
 // import { Address, User } from "@prisma/client";
-// import {
-//   CategoryTypes,
-//   ProductTypes,
-//   UserAndProfileTypes,
-//   orderTypes,
-// } from "@/types";
+import {
+  CategoryTypes,
+  // ProductTypes,
+  // UserAndProfileTypes,
+  // orderTypes,
+} from "@/types";
 // import { User } from "@prisma/client";
 import { StateCreator } from "zustand";
 export interface EcommerceAppSliceTypes {
@@ -20,10 +20,10 @@ export interface EcommerceAppSliceTypes {
   // setOpenModal: (data: boolean) => void;
   // viewingProductId: string;
   // setviewingProductId: (data: string) => void;
-  // categoriesData: CategoryTypes[] | [];
-  // setCategoriesData: (data: CategoryTypes[]) => void;
-  // editCategory: CategoryTypes | null;
-  // setEditCategory: (data: CategoryTypes) => void;
+  categoriesData: CategoryTypes[] | [];
+  setCategoriesData: (data: CategoryTypes[]) => void;
+  editCategory: CategoryTypes | null;
+  setEditCategory: (data: CategoryTypes) => void;
   // viewingProduct: ProductTypes | undefined;
   // setViewingProduct: (data: ProductTypes) => void;
   // searchProducts: ProductTypes[] | [];
@@ -32,8 +32,8 @@ export interface EcommerceAppSliceTypes {
   // setViewingOrderId: (data: string) => void;
   // orders: orderTypes[] | [];
   // setOrders: (data: orderTypes[]) => void;
-  // viewingCategoryId: string;
-  // setViewingCategoryId: (data: string) => void;
+  viewingCategoryId: string;
+  setViewingCategoryId: (data: string) => void;
 
   // // user
   // productCategory: string;
@@ -82,14 +82,14 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   // setViewingProduct: (data: ProductTypes) => {
   //   set({ viewingProduct: data });
   // },
-  // categoriesData: [],
-  // setCategoriesData: (data: CategoryTypes[]) => {
-  //   set({ categoriesData: data });
-  // },
-  // editCategory: null,
-  // setEditCategory: (data: CategoryTypes) => {
-  //   set({ editCategory: data });
-  // },
+  categoriesData: [],
+  setCategoriesData: (data: CategoryTypes[]) => {
+    set({ categoriesData: data });
+  },
+  editCategory: null,
+  setEditCategory: (data: CategoryTypes) => {
+    set({ editCategory: data });
+  },
   // viewingOrderId: "",
   // setViewingOrderId: (data: string) => {
   //   set({ viewingOrderId: data });
@@ -98,10 +98,10 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   // setOrders: (data: orderTypes[]) => {
   //   set({ orders: data });
   // },
-  // viewingCategoryId: "",
-  // setViewingCategoryId: (data: string) => {
-  //   set({ viewingCategoryId: data });
-  // },
+  viewingCategoryId: "",
+  setViewingCategoryId: (data: string) => {
+    set({ viewingCategoryId: data });
+  },
 
   // user
   // productCategory: "",

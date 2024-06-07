@@ -1,3 +1,4 @@
+import Categories from "./categories";
 import DashBoard from "./dashboard";
 import Header from "./header";
 import Products from "./prodcuts";
@@ -6,6 +7,7 @@ export {
   DashBoard,
   Side,
   Header,
+  Categories,
   Products,
   
 }
