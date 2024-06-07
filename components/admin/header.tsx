@@ -15,7 +15,6 @@ import { AdminType } from "@/types";
 const Header = () => {
   const { collapsSidbar, setCollapsSidbar } = useAppStore();
   const [adminDetails, setAdminDetails] = useState<AdminType | undefined>();
-  console.log('Header ~ adminDetails:', adminDetails);
   const user = useAuthUser();
 
   useEffect(() => {
