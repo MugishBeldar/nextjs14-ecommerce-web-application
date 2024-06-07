@@ -21,3 +21,24 @@ model admin_user {
     password  String
     status    Boolean
 }
+
+model Products {
+    id          String         @id @default(cuid())
+    productName String
+    price       Float
+    discount    Float
+    description String
+    images      String[]
+    tags        String[]
+    category    Categories     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId  String
+    quantity    Int
+    createdAt   DateTime       @default(now())
+    updatedAt   DateTime       @updatedAt
+}
+
+model Categories {
+    id           String     @id @default(cuid())
+    categoryName String     @unique
+    products     Products[] // One-to-many relationship with Products
+}

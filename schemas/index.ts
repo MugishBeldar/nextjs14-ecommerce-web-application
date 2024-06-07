@@ -12,3 +12,9 @@ export const LoginSchema = z.object({
     .regex(/[!@#$%^&*(),.?":{}|<>]/, { message: "Password must contain at least one special character" })
     .regex(/\d/, { message: "Password must contain at least one number" })
 });
+
+export const CategorySchema = z.object({
+  categoryName: z.string().min(1, {
+    message: "Category name required",
+  }),
+});
