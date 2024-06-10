@@ -2,6 +2,7 @@
 // import { Address, User } from "@prisma/client";
 import {
   CategoryTypes,
+  ProductTypes,
   // ProductTypes,
   // UserAndProfileTypes,
   // orderTypes,
@@ -12,20 +13,20 @@ export interface EcommerceAppSliceTypes {
   // admin
   collapsSidbar?: boolean;
   setCollapsSidbar: (data: boolean) => void;
-  // productsData: ProductTypes[] | [];
-  // setProductsData: (data: ProductTypes[]) => void;
+  productsData: ProductTypes[] | [];
+  setProductsData: (data: ProductTypes[]) => void;
   toggleSheet?: boolean;
   setToggleSheet: (data: boolean) => void;
   // openModal: boolean;
   // setOpenModal: (data: boolean) => void;
-  // viewingProductId: string;
-  // setviewingProductId: (data: string) => void;
+  viewingProductId: string;
+  setviewingProductId: (data: string) => void;
   categoriesData: CategoryTypes[] | [];
   setCategoriesData: (data: CategoryTypes[]) => void;
   editCategory: CategoryTypes | null;
   setEditCategory: (data: CategoryTypes) => void;
-  // viewingProduct: ProductTypes | undefined;
-  // setViewingProduct: (data: ProductTypes) => void;
+  viewingProduct: ProductTypes | undefined;
+  setViewingProduct: (data: ProductTypes) => void;
   // searchProducts: ProductTypes[] | [];
   // setSearchProducts: (data: ProductTypes[]) => void;
   // viewingOrderId: string;
@@ -62,10 +63,10 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   setCollapsSidbar: (open: boolean) => {
     set({ collapsSidbar: open });
   },
-  // productsData: [],
-  // setProductsData: (data: ProductTypes[]) => {
-  //   set({ productsData: data });
-  // },
+  productsData: [],
+  setProductsData: (data: ProductTypes[]) => {
+    set({ productsData: data });
+  },
   toggleSheet: false,
   setToggleSheet: (open: boolean) => {
     set({ toggleSheet: open });
@@ -74,14 +75,14 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   // setOpenModal: (open: boolean) => {
   //   set({ openModal: open });
   // },
-  // viewingProductId: "",
-  // setviewingProductId: (data: string) => {
-  //   set({ viewingProductId: data });
-  // },
-  // viewingProduct: undefined,
-  // setViewingProduct: (data: ProductTypes) => {
-  //   set({ viewingProduct: data });
-  // },
+  viewingProductId: "",
+  setviewingProductId: (data: string) => {
+    set({ viewingProductId: data });
+  },
+  viewingProduct: undefined,
+  setViewingProduct: (data: ProductTypes) => {
+    set({ viewingProduct: data });
+  },
   categoriesData: [],
   setCategoriesData: (data: CategoryTypes[]) => {
     set({ categoriesData: data });

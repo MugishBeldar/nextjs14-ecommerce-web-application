@@ -1,3 +1,141 @@
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// model User {
+//   id            String    @id @default(cuid())
+//   name          String?
+//   email         String?   @unique
+//   image         String?
+//   emailVerified DateTime?
+//   profile       Profile[]
+//   wishlist      Wishlist?
+//   cart          Cart?
+//   order         Order[]
+//   createdAt     DateTime  @default(now())
+//   updatedAt     DateTime  @updatedAt
+//   accounts      Account[]
+
+//   @@map("users")
+// }
+
+// model Account {
+//   id                String  @id @default(cuid())
+//   userId            String
+//   type              String
+//   provider          String
+//   providerAccountId String
+//   refresh_token     String? @db.Text
+//   access_token      String? @db.Text
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String? @db.Text
+//   session_state     String?
+
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   @@unique([provider, providerAccountId])
+// }
+
+// model admin_user {
+//   id        String  @id @default(cuid())
+//   firstName String
+//   lastName  String
+//   email     String  @unique()
+//   password  String
+//   status    Boolean
+// }
+
+// model Profile {
+//   id        String   @id @default(cuid())
+//   userId    String   @unique
+//   addresses String[]
+//   mobileNo  String?
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
+
+// model Products {
+//   id          String         @id @default(cuid())
+//   productName String
+//   price       Float
+//   discount    Float
+//   description String
+//   images      String[]
+//   tags        String[]
+//   category    Categories     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+//   categoryId  String
+//   quantity    Int
+//   createdAt   DateTime       @default(now())
+//   updatedAt   DateTime       @updatedAt
+//   wishlist    Wishlist[] // One-to-many relationship with Wishlist
+//   carts       CartProduct[] // One-to-many relationship with CartProduct
+//   order       OrderProduct[]
+// }
+
+// model Categories {
+//   id           String     @id @default(cuid())
+//   categoryName String     @unique
+//   products     Products[] // One-to-many relationship with Products
+// }
+
+// model Wishlist {
+//   id        String     @id @default(cuid())
+//   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   userId    String     @unique
+//   products  Products[] // Many-to-many relationship with Products
+//   createdAt DateTime   @default(now())
+// }
+
+// model Cart {
+//   id        String        @id @default(cuid())
+//   user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   userId    String        @unique
+//   products  CartProduct[]
+//   createdAt DateTime      @default(now())
+// }
+
+// model Order {
+//   id            String         @id @default(cuid())
+//   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   userId        String
+//   products      OrderProduct[]
+//   createdAt     DateTime       @default(now())
+//   totalPrice    Float
+//   totalDiscount Float
+//   orderStatus   String
+//   paymentStatus String
+// }
+
+// model CartProduct {
+//   id        String   @id @default(cuid())
+//   cart      Cart     @relation(fields: [cartId], references: [id])
+//   cartId    String
+//   product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+//   productId String
+//   quantity  Int
+// }
+
+// model OrderProduct {
+//   id        String   @id @default(cuid())
+//   order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+//   orderId   String
+//   product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+//   productId String
+//   quantity  Int
+// }
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -5,133 +143,141 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  image         String?
-  emailVerified DateTime?
-  profile       Profile[]
-  wishlist      Wishlist?
-  cart          Cart?
-  order         Order[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  accounts      Account[]
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    image         String?
+    emailVerified DateTime?
+    role          UserRole  @default(USER)
+    profile       Profile[]
+    wishlist      Wishlist?
+    cart          Cart?
+    order         Order[]
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    accounts      Account[]
 
-  @@map("users")
+    @@map("users")
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])
+    @@unique([provider, providerAccountId])
 }
 
 model admin_user {
-  id        String  @id @default(cuid())
-  firstName String
-  lastName  String
-  email     String  @unique()
-  password  String
-  status    Boolean
+    id        String   @id @default(cuid())
+    firstName String
+    lastName  String
+    email     String   @unique()
+    password  String
+    status    Boolean
+    roles     String[]
 }
 
-model Profile {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  addresses String[]
-  mobileNo  String?
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+enum UserRole {
+    ADMIN
+    USER
 }
 
 model Products {
-  id          String         @id @default(cuid())
-  productName String
-  price       Float
-  discount    Float
-  description String
-  images      String[]
-  tags        String[]
-  category    Categories     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId  String
-  quantity    Int
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-  wishlist    Wishlist[] // One-to-many relationship with Wishlist
-  carts       CartProduct[] // One-to-many relationship with CartProduct
-  order       OrderProduct[]
+    id          String         @id @default(cuid())
+    productName String
+    price       Float
+    discount    Float
+    description String
+    images      String[]
+    tags        String[]
+    category    Categories     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId  String
+    quantity    Int
+    createdAt   DateTime       @default(now())
+    updatedAt   DateTime       @updatedAt
+    wishlist    Wishlist[] // One-to-many relationship with Wishlist
+    carts       CartProduct[] // One-to-many relationship with CartProduct
+    order       OrderProduct[]
 }
 
 model Categories {
-  id           String     @id @default(cuid())
-  categoryName String     @unique
-  products     Products[] // One-to-many relationship with Products
+    id           String     @id @default(cuid())
+    categoryName String     @unique
+    products     Products[] // One-to-many relationship with Products
+}
+
+model Profile {
+    id        String   @id @default(cuid())
+    userId    String   @unique
+    addresses String[]
+    mobileNo  String?
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Wishlist {
-  id        String     @id @default(cuid())
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String     @unique
-  products  Products[] // Many-to-many relationship with Products
-  createdAt DateTime   @default(now())
+    id        String     @id @default(cuid())
+    user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String     @unique
+    products  Products[] // Many-to-many relationship with Products
+    createdAt DateTime   @default(now())
 }
 
 model Cart {
-  id        String        @id @default(cuid())
-  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String        @unique
-  products  CartProduct[]
-  createdAt DateTime      @default(now())
-}
-
-model Order {
-  id            String         @id @default(cuid())
-  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String
-  products      OrderProduct[]
-  createdAt     DateTime       @default(now())
-  totalPrice    Float
-  totalDiscount Float
-  orderStatus   String
-  paymentStatus String
+    id        String        @id @default(cuid())
+    user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String        @unique
+    products  CartProduct[]
+    createdAt DateTime      @default(now())
 }
 
 model CartProduct {
-  id        String   @id @default(cuid())
-  cart      Cart     @relation(fields: [cartId], references: [id])
-  cartId    String
-  product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId String
-  quantity  Int
+    id        String   @id @default(cuid())
+    cart      Cart     @relation(fields: [cartId], references: [id])
+    cartId    String
+    product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+    productId String
+    quantity  Int
+}
+
+model Order {
+    id            String         @id @default(cuid())
+    user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId        String
+    products      OrderProduct[]
+    createdAt     DateTime       @default(now())
+    totalPrice    Float
+    totalDiscount Float
+    orderStatus   String
+    paymentStatus String
 }
 
 model OrderProduct {
-  id        String   @id @default(cuid())
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderId   String
-  product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId String
-  quantity  Int
+    id        String   @id @default(cuid())
+    order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    orderId   String
+    product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+    productId String
+    quantity  Int
 }
+

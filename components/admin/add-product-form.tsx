@@ -12,32 +12,31 @@ import { toast } from "sonner";
 import "../style/add-product-form.css";
 import CloudinaryUploadImages from "./cloudinary-upload-images";
 import { useAppStore } from "@/store";
+import { ProductSchema } from "@/schemas";
+import { getCategories } from "@/actions/category";
+import { createProduct, getProducts } from "@/actions/product";
+
+import { Input } from "@/components/ui/input";
 import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { ProductSchema } from "@/schemas";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
-// import { getCategories } from "@/actions/get-all-categories";
-// import { createProduct } from "@/actions/create-product";
-// import { getProducts } from "@/actions/get-products";
 
 const AddProductForm = () => {
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string[] | []>([]);
-  const [selected, setSelected] = useState<string[] | []>([]);
   const [tagError, setTagError] = useState<boolean>(false);
-  // const { setProductsData, setToggleSheet, setCategoriesData, categoriesData } = useAppStore();
-  const { setToggleSheet } = useAppStore();
+  const [selected, setSelected] = useState<string[] | []>([]);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string[] | []>([]);
+  const { setProductsData, setToggleSheet, setCategoriesData, categoriesData } = useAppStore();
 
-  // useEffect(() => {
-  //   async function fetchCategories() {
-  //     const response = await getCategories();
-  //     if (response && response.length > 0) {
-  //       setCategoriesData(response);
-  //     }
-  //   }
-  //   fetchCategories();
-  // }, [setCategoriesData]);
+  useEffect(() => {
+    async function fetchCategories() {
+      const response = await getCategories();
+      if (response && response.length > 0) {
+        setCategoriesData(response);
+      }
+    }
+    fetchCategories();
+  }, [setCategoriesData]);
 
   const form = useForm({
     resolver: zodResolver(ProductSchema),
@@ -58,44 +57,44 @@ const AddProductForm = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof ProductSchema>) => {
-    // if (selected.length) {
-    //   setTagError(true);
-    //   const tags = selected;
-    //   const category = categoriesData.find(
-    //     (category) => category.categoryName === values.category
-    //   );
-    //   if (category) {
-    //     const { error, success } = await createProduct(
-    //       values,
-    //       uploadedImageUrl,
-    //       category?.id,
-    //       tags
-    //     );
-    //     if (error) {
-    //       toast.error("Please provide a valid product data.");
-    //       setToggleSheet(false);
-    //       setTagError(false);
-    //     }
-    //     if (success) {
-    //       toast.success("Product created successfully.");
-    //       setTagError(false);
+    if (selected.length) {
+      setTagError(true);
+      const tags = selected;
+      const category = categoriesData.find(
+        (category) => category.categoryName === values.category
+      );
+      if (category) {
+        const { error, success } = await createProduct(
+          values,
+          uploadedImageUrl,
+          category?.id,
+          tags
+        );
+        if (error) {
+          toast.error("Please provide a valid product data.");
+          setToggleSheet(false);
+          setTagError(false);
+        }
+        if (success) {
+          toast.success("Product created successfully.");
+          setTagError(false);
 
-    //       setToggleSheet(false);
-    //     }
-    //     setUploadedImageUrl([]);
-    //   }
-    //   const response = await getProducts();
-    //   if (response && response.length) {
-    //     setProductsData(response);
-    //   } else {
-    //     setProductsData([]);
-    //   }
-    //   form.reset();
-    //   return;
-    // } else {
-    //   setTagError(true);
-    //   return;
-    // }
+          setToggleSheet(false);
+        }
+        setUploadedImageUrl([]);
+      }
+      const response = await getProducts();
+      if (response && response.length) {
+        setProductsData(response);
+      } else {
+        setProductsData([]);
+      }
+      form.reset();
+      return;
+    } else {
+      setTagError(true);
+      return;
+    }
   };
 
   const removeImage = async (url: string) => {
@@ -175,13 +174,12 @@ const AddProductForm = () => {
                             field.onChange(value);
                           }}
                           defaultValue={field.value}
-                          
                         >
                           <SelectTrigger  className="w-[98%] ml-1  bg-transparent outline-none border-secondary-black">
                             <SelectValue placeholder="Select category" />
                           </SelectTrigger>
                           <SelectContent className="placeholder:text-red-900 text-primary-text hover:bg-surface  bg-primary-background outline-none border-secondary-black">
-                            {/* {categoriesData.map((category) => (
+                            {categoriesData.map((category) => (
                               <SelectItem
                                 key={category.id}
                                 className="hover:bg-surface"
@@ -189,28 +187,7 @@ const AddProductForm = () => {
                               >
                                 {category.categoryName}
                               </SelectItem>
-                            ))} */}
-                             <SelectItem
-                                key={Math.random()}
-                                className="hover:bg-surface"
-                                value={"one"}
-                              >
-                                {'one'}
-                              </SelectItem>
-                              <SelectItem
-                                key={Math.random()}
-                                className="hover:bg-surface"
-                                value={"two"}
-                              >
-                                {'two'}
-                              </SelectItem>
-                              <SelectItem
-                                key={Math.random()}
-                                className="hover:bg-surface"
-                                value={"three"}
-                              >
-                                {'three'}
-                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </FormControl>
@@ -318,8 +295,7 @@ const AddProductForm = () => {
                 <p className="text-custom-font">Product Images</p>
                 <div className="border rounded-xl border-dashed border-custom-font my-2 h-[100px] flex flex-col justify-center items-center">
                   <div
-                    className="flex flex-col justify-center items-center
-                            "
+                    className="flex flex-col justify-center items-center"
                   >
                     <CloudinaryUploadImages
                       handleUploadSuccess={handleUploadSuccess}
