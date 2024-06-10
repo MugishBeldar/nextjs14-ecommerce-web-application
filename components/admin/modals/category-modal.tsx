@@ -32,8 +32,9 @@ export const CategoryModal = ({
 
   useEffect(() => {
     async function getCategoriesProduct() {
-      const result = await getAllCategorisWithProductCount();
-      const categoryDetails = result.find((c) => c.id === viewingCategoryId);
+      const result:any = await getAllCategorisWithProductCount();
+      console.log('getCategoriesProduct ~ result:', result);
+      const categoryDetails = result.find((c:any) => c.id === viewingCategoryId);
       if (categoryDetails) {
         categoryDetails;
         setNewCategoryName(categoryDetails?.categoryName);
