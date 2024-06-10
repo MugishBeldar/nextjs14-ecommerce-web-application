@@ -9,8 +9,6 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { useEffect, useState } from "react";
 import { AdminType } from "@/types";
-// import { getAdminDetails } from "@/data/admint";
-// import { AdminTypes } from "@/types";
 
 const Header = () => {
   const { collapsSidbar, setCollapsSidbar } = useAppStore();

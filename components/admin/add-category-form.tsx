@@ -6,13 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { CategorySchema } from "@/schemas";
-import { Button } from "../ui/button";
 import { useAppStore } from "@/store";
 import { createCategory, getCategories } from "@/actions/category";
-// import { updateCategory } from "@/actions/update-category";
+
+import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "../ui/button";
 
 const AddCategoryForm = () => {
   const { setCategoriesData, setToggleSheet, editCategory, setEditCategory } =useAppStore();
