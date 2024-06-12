@@ -97,7 +97,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                     (tab) => (
                       <TabsTrigger
                         key={tab}
-                        className="data-[state=inactive]:border-b-2 data-[state=inactive]:border-transparent data-[state=active]:border-b-2 data-[state=active]:border-b-secondary-blue rounded-none data-[state=active]:text-primary-text data-[state=active]:bg-transparent text-primary-text hover:bg-transparent"
+                        className="data-[state=inactive]:border-b-2 data-[state=inactive]:border-transparent data-[state=active]:border-b-2 data-[state=active]:border-b-secondary-blue rounded-none data-[state=active]:text-primary-txt data-[state=active]:bg-transparent text-primary-txt hover:bg-transparent"
                         value={tab}
                       >
                         {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -110,7 +110,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
               {["information", "pricing", "images", "inventory"].map((tab) => (
                 <TabsContent key={tab} value={tab} className="">
                   {tab === "information" && (
-                    <div className="text-primary-text">
+                    <div className="text-primary-txt">
                       <div className="mb-4">
                         <div className="text-custom-font">Product Name</div>
                         <div>
@@ -142,7 +142,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                           <SelectTrigger className="bg-transparent outline-none border-secondary-black">
                             <SelectValue placeholder="" />
                           </SelectTrigger>
-                          <SelectContent className="font-light text-primary-text hover:bg-surface bg-primary-background outline-none border-secondary-black">
+                          <SelectContent className="font-light text-primary-txt hover:bg-surface bg-primary-background outline-none border-secondary-black">
                             {categoriesData.map((category) => (
                               <SelectItem
                                 key={category.id}
@@ -172,7 +172,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                     </div>
                   )}
                   {tab === "pricing" && (
-                    <div className="text-primary-text">
+                    <div className="text-primary-txt">
                       <div className="mb-4">
                         <div className="text-custom-font">Price</div>
                         <div>
@@ -202,7 +202,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                     </div>
                   )}
                   {tab === "inventory" && (
-                    <div className="text-primary-text">
+                    <div className="text-primary-txt">
                       <div className="mb-4">
                         <div className="text-custom-font">Quantity</div>
                         <div>
@@ -220,7 +220,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                   )}
 
                   {tab === "images" && (
-                    <div className="text-primary-text">
+                    <div className="text-primary-txt">
                       <div className="mb-4">
                         <div className="border rounded-xl border-dashed border-custom-font h-[100px] flex flex-col justify-center items-center">
                           <div

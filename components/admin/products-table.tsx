@@ -128,15 +128,15 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
             <TableHeader>
               <TableRow className="hover:bg-surface border-b-secondary-black">
                 <>
-                  <TableHead className="text-base text-primary-text">No</TableHead>
-                  <TableHead className="text-base text-primary-text">Product Name</TableHead>
-                  <TableHead className="text-base text-primary-text">Price</TableHead>
-                  <TableHead className="text-base text-primary-text">Discount</TableHead>
-                  <TableHead className="text-base text-primary-text">Categor Name</TableHead>
-                  <TableHead className="text-base text-primary-text">Quantity</TableHead>
-                  <TableHead className="text-base text-primary-text">Available</TableHead>
-                  <TableHead className="text-base text-primary-text">Edit</TableHead>
-                  <TableHead className="text-base text-primary-text">Delete</TableHead>
+                  <TableHead className="text-base text-primary-txt">No</TableHead>
+                  <TableHead className="text-base text-primary-txt">Product Name</TableHead>
+                  <TableHead className="text-base text-primary-txt">Price</TableHead>
+                  <TableHead className="text-base text-primary-txt">Discount</TableHead>
+                  <TableHead className="text-base text-primary-txt">Categor Name</TableHead>
+                  <TableHead className="text-base text-primary-txt">Quantity</TableHead>
+                  <TableHead className="text-base text-primary-txt">Available</TableHead>
+                  <TableHead className="text-base text-primary-txt">Edit</TableHead>
+                  <TableHead className="text-base text-primary-txt">Delete</TableHead>
                 </>
               </TableRow>
             </TableHeader>
@@ -147,7 +147,7 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
                   <>
                     <TableRow
                       key={item.id}
-                      className="hover:bg-primary-background text-primary-text font-light  border-b-secondary-black cursor-pointer"
+                      className="hover:bg-primary-background text-primary-txt font-light  border-b-secondary-black cursor-pointer"
                     >
                       <TableCell>{index + 1}</TableCell>
                       <TableCell className="">{item.productName}</TableCell>

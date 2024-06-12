@@ -114,7 +114,7 @@ const AddProductForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
           <div className="flex h-full flex-col">
             <div className="h-full ">
-              <div className="w-[98%] ml-1 my-6 text-primary-text">
+              <div className="w-[98%] ml-1 my-6 text-primary-txt">
                 <FormField
                   control={form.control}
                   name="productName"
@@ -136,7 +136,7 @@ const AddProductForm = () => {
                   )}
                 />
               </div>
-              <div className="w-[98%] ml-1 my-6 text-primary-text">
+              <div className="w-[98%] ml-1 my-6 text-primary-txt">
                 <FormField
                   control={form.control}
                   name="description"
@@ -158,7 +158,7 @@ const AddProductForm = () => {
                   )}
                 />
               </div>
-              <div className="w-[98%] ml-1 my-6 text-primary-text">
+              <div className="w-[98%] ml-1 my-6 text-primary-txt">
                 <FormField
                   control={form.control}
                   name="category"
@@ -178,7 +178,7 @@ const AddProductForm = () => {
                           <SelectTrigger  className="w-[98%] ml-1  bg-transparent outline-none border-secondary-black">
                             <SelectValue placeholder="Select category" />
                           </SelectTrigger>
-                          <SelectContent className="placeholder:text-red-900 text-primary-text hover:bg-surface  bg-primary-background outline-none border-secondary-black">
+                          <SelectContent className="placeholder:text-red-900 text-primary-txt hover:bg-surface  bg-primary-background outline-none border-secondary-black">
                             {categoriesData.map((category) => (
                               <SelectItem
                                 key={category.id}
@@ -196,7 +196,7 @@ const AddProductForm = () => {
                   )}
                 />
               </div>
-              <div className="w-[98%] ml-1 flex gap-4 my-6 text-primary-text">
+              <div className="w-[98%] ml-1 flex gap-4 my-6 text-primary-txt">
                 <FormField
                   control={form.control}
                   name="price"
@@ -262,7 +262,7 @@ const AddProductForm = () => {
                   )}
                 />
               </div>
-              <div className="w-[98%] ml-1 my-6 text-primary-text">
+              <div className="w-[98%] ml-1 my-6 text-primary-txt">
                 <FormField
                   name=""
                   render={({ field }) => (
@@ -291,7 +291,7 @@ const AddProductForm = () => {
                   )}
                 />
               </div>
-              <div className="my-6 text-primary-text">
+              <div className="my-6 text-primary-txt">
                 <p className="text-custom-font">Product Images</p>
                 <div className="border rounded-xl border-dashed border-custom-font my-2 h-[100px] flex flex-col justify-center items-center">
                   <div

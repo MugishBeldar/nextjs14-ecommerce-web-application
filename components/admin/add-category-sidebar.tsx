@@ -39,7 +39,7 @@ const AddCategorySideBar = () => {
           className={`bg-primary-background rounded-lg border-none`}
         >
           <SheetHeader>
-            <SheetTitle className="text-primary-text font-bold text-2xl my-4">
+            <SheetTitle className="text-primary-txt font-bold text-2xl my-4">
               Add Category
             </SheetTitle>
             <SheetDescription className="text-primary-txt h-full">

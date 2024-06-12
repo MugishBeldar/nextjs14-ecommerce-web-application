@@ -78,7 +78,7 @@ const Side = () => {
           },
         }}
       >
-        <div className="text-primary-text flex  items-center justify-center gap-3 pl-[15px] my-5">
+        <div className="text-primary-txt flex  items-center justify-center gap-3 pl-[15px] my-5">
           <svg
             fill="none"
             height="48"

@@ -32,7 +32,7 @@ const Header = () => {
         </Button>
       </div>
       <div className="border border-l border-secondary-black mr-10 my-2"></div>
-      <div className="mr-10 text-primary-text">
+      <div className="mr-10 text-primary-txt">
         <div className="flex justify-center items-center gap-4 py-1">
           {adminDetails?.user?.firstName && (
             <>

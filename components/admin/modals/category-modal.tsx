@@ -74,7 +74,7 @@ export const CategoryModal = ({
       <Dialog open={categoryModal} onOpenChange={setCategoryModal}>
         <DialogContent className="bg-surface border border-secondary-black">
           <DialogHeader>
-            <DialogTitle className="text-xl text-primary-text">
+            <DialogTitle className="text-xl text-primary-txt">
               Edit Category
             </DialogTitle>
             <DialogDescription className="text-white">

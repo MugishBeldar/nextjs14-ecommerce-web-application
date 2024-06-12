@@ -105,7 +105,7 @@ const AddCategoryForm = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
             <div className="flex h-full flex-col">
               <div className="h-[80%] overflow-y-scroll scrollbar-hide">
-                <div className="my-6 text-primary-text">
+                <div className="my-6 text-primary-txt">
                   <FormField
                     control={form.control}
                     name="categoryName"

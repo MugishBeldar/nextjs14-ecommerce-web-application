@@ -131,21 +131,21 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
         <div className="w-full">
           <Table className="w-full">
             <TableHeader>
-              <TableRow className="hover:bg-surface text-primary-text font-medium border-b-secondary-black">
+              <TableRow className="hover:bg-surface text-primary-txt font-medium border-b-secondary-black">
                 <>
-                  <TableHead className="text-primary-text font-medium">
+                  <TableHead className="text-primary-txt font-medium">
                     No
                   </TableHead>
-                  <TableHead className="text-primary-text font-medium">
+                  <TableHead className="text-primary-txt font-medium">
                     Category Name
                   </TableHead>
-                  <TableHead className="text-primary-text font-medium">
+                  <TableHead className="text-primary-txt font-medium">
                     Total Products
                   </TableHead>
-                  <TableHead className="text-primary-text font-medium">
+                  <TableHead className="text-primary-txt font-medium">
                     Edit
                   </TableHead>
-                  <TableHead className="text-primary-text font-medium">
+                  <TableHead className="text-primary-txt font-medium">
                     Delete
                   </TableHead>
                 </>

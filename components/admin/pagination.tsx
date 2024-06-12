@@ -25,7 +25,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({ currentPage, 
                 "",
                 currentPage === 1
                   ? "cursor-not-allowed text-zinc-400 hover:text-zinc-400"
-                  : "transition-all duration-500 hover:text-primary-text text-secondary-blue hover:bg-secondary-blue"
+                  : "transition-all duration-500 hover:text-primary-txt text-secondary-blue hover:bg-secondary-blue"
               )}
               href="#"
               onClick={() => onPageChange(currentPage - 1)}
@@ -36,7 +36,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({ currentPage, 
           <PaginationItem key={index}>
             <PaginationLink
               className={cn(
-                "hover:bg-secondary-blue hover:text-primary-text border-none",
+                "hover:bg-secondary-blue hover:text-primary-txt border-none",
                 currentPage === index + 1 ? "bg-secondary-blue text-white" : ""
               )}
               href="#"
@@ -54,7 +54,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({ currentPage, 
                 "",
                 currentPage === totalPages
                   ? "cursor-not-allowed text-zinc-400 hover:text-zinc-400"
-                  : "transition-all duration-500 hover:text-primary-text text-secondary-blue hover:bg-secondary-blue"
+                  : "transition-all duration-500 hover:text-primary-txt text-secondary-blue hover:bg-secondary-blue"
               )}
               href="#"
               onClick={() => onPageChange(currentPage + 1)}

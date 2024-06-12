@@ -75,7 +75,7 @@ export function CredentialsForm(props: CredentialsFormProps) {
     //         name="email"
     //         placeholder="Email"
     //         required
-    //         className="w-full px-8 py-2 mb-4 text-primary-text rounded-md border border-zin-400/20 bg-transparent focus:border-custom-font placeholder:text-zinc-400 placeholder:font-medium placeholder:text-lg"
+    //         className="w-full px-8 py-2 mb-4 text-primary-txt rounded-md border border-zin-400/20 bg-transparent focus:border-custom-font placeholder:text-zinc-400 placeholder:font-medium placeholder:text-lg"
     //       />
     //     </div>
 
@@ -86,7 +86,7 @@ export function CredentialsForm(props: CredentialsFormProps) {
     //         name="password"
     //         placeholder="Password"
     //         required
-    //         className="w-full px-8 py-2 mb-4 text-primary-text rounded-md border border-zinc-400/20 bg-transparent focus:border-custom-font placeholder:text-zinc-400 placeholder:font-medium placeholder:text-lg"
+    //         className="w-full px-8 py-2 mb-4 text-primary-txt rounded-md border border-zinc-400/20 bg-transparent focus:border-custom-font placeholder:text-zinc-400 placeholder:font-medium placeholder:text-lg"
     //       />
     //     </div>
 
@@ -107,13 +107,13 @@ export function CredentialsForm(props: CredentialsFormProps) {
               name="email"
               render={({ field }) => (
                 <FormItem className="">
-                  <FormLabel className="text-primary-text text-xl ">
+                  <FormLabel className="text-primary-txt text-xl ">
                     Email <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      className="w-full  py-2 mb-4 text-primary-text rounded-md border border-zinc-400/20 bg-transparent focus:border-custom-font  placeholder:font-medium "
+                      className="w-full  py-2 mb-4 text-primary-txt rounded-md border border-zinc-400/20 bg-transparent focus:border-custom-font  placeholder:font-medium "
                       placeholder="Enter email"
                       {...field}
                     />
@@ -129,14 +129,14 @@ export function CredentialsForm(props: CredentialsFormProps) {
               name="password"
               render={({ field }) => (
                 <FormItem className="">
-                  <FormLabel className="text-primary-text text-xl ">
+                  <FormLabel className="text-primary-txt text-xl ">
                     Password <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
                       type="password"
-                      className="w-full  py-2 mb-4 text-primary-text rounded-md border border-zinc-400/20 bg-transparent focus:border-custom-font  placeholder:font-medium "
+                      className="w-full  py-2 mb-4 text-primary-txt rounded-md border border-zinc-400/20 bg-transparent focus:border-custom-font  placeholder:font-medium "
                       placeholder="Enter password"
                       {...field}
                     />
