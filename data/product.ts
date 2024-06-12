@@ -103,3 +103,16 @@ export const deleteProdcutDB = async (id: string) => {
     throw error;
   }
 };
+
+export async function getAllTagsDB() {
+  const tags = await db.products.findMany({
+    select: {
+      tags: true,
+    },
+  });
+  const uniqueTags = Array.from(
+    new Set(tags.flatMap((product) => product.tags))
+  );
+
+  return uniqueTags;
+}

@@ -37,6 +37,10 @@ export interface EcommerceAppSliceTypes {
   setViewingCategoryId: (data: string) => void;
 
   // // user
+  searchTerm? :string;
+  setSearchTerm: (data: string) => void;
+  openModal?: boolean;
+  setOpenModal: (data: boolean) => void;
   // productCategory: string;
   // setProductCategory: (data: string) => void;
   // userProductsData: ProductTypes[] | [];
@@ -105,6 +109,14 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   },
 
   // user
+  searchTerm:'',
+  setSearchTerm: (term: string) => {
+    set({ searchTerm: term });
+  },
+  openModal: false,
+  setOpenModal: (open: boolean) => {
+    set({ openModal: open });
+  },
   // productCategory: "",
   // setProductCategory: (data: string) => {
   //   set({ productCategory: data });
