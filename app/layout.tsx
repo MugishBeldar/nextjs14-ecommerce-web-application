@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 
 import { NextAuthProvider } from "@/app/providers";
 import "./globals.css";
+import { Header } from "@/components/user";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+        <div className="flex flex-col h-screen">
+
+        <div className="sticky top-0 w-full z-50 bg-black ">
+              <Header />
+              {/* <p>Header</p> */}
+            </div>
+          <div className="bg-primary-dark flex-1">{children}</div>
+          </div>
+          </NextAuthProvider>
         <Toaster richColors closeButton />
       </body>
     </html>

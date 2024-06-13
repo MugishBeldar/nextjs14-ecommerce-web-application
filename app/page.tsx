@@ -1,9 +1,13 @@
-import Image from "next/image";
+import { CategoryCarousel, DealOfTheDayCarousel, OfferCarousel } from "@/components/user/carousel";
 
 export default function Home() {
   return (
-   <div className="bg-red-400">
-    user view
-   </div>
+    <div className="">
+      <OfferCarousel />
+      <CategoryCarousel />
+      <DealOfTheDayCarousel />
+    </div>
   );
 }
+
+

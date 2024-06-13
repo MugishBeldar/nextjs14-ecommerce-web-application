@@ -1,6 +1,6 @@
 'use server';
 
-import { createProductDB, deleteProdcutDB, getProductDB, getProductFromIdDB, updateProductDB } from "@/data/product";
+import { createProductDB, deleteProdcutDB, getAllTagsDB, getProductDB, getProductFromIdDB, updateProductDB } from "@/data/product";
 import { ProductSchema } from "@/schemas";
 import { z } from "zod";
 
@@ -122,3 +122,13 @@ export const deleteProduct = async (id:string) => {
       };
     }
 } 
+
+
+export const getAllTags = async () => {
+  try {
+    const tags = await getAllTagsDB();
+    return tags;
+  } catch (error) {
+    console.log("Error while getting all tags", error);
+  }
+};
