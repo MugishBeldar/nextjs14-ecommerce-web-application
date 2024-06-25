@@ -19,7 +19,6 @@ import { cn } from "@/lib/utils";
 const Header = () => {
   const pathname = usePathname()
   const isAdminPannel = pathname.startsWith('/admin');
-  console.log('Header ~ pathname:', pathname);
   const router = useRouter();
   //   const { setOpenModal } = useAppStore();
 

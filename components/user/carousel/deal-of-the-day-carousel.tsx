@@ -12,7 +12,6 @@ const DealOfTheDayCarousel = () => {
   useEffect(()=>{
     (async function() {
       const response = await getProducts();
-      console.log(response);
       if(response?.length) {
         setDealOfthDay(response);
       }
@@ -21,7 +20,7 @@ const DealOfTheDayCarousel = () => {
   return (
     <div className="text-primary-txt">
       <div className="text-4xl font-medium my-8 px-6 lg:container lg:px-0">Deal of the Day</div>
-      {dealOfTheDay && <MultipleProductCarousel  products={dealOfthDay}  />}
+      {dealOfTheDay && <MultipleProductCarousel products={dealOfthDay}  />}
     </div>
   );
 };
