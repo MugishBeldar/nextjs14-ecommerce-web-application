@@ -1,6 +1,6 @@
 "use client";
 // import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import Profile from "./profile";
 import Search from "./search";
@@ -9,6 +9,7 @@ import { IoCart } from "react-icons/io5";
 import { HeaderSheet } from "./header-sheet";
 import { IoLocationSharp } from "react-icons/io5";
 import { HoverList } from "./hover-list";
+import { cn } from "@/lib/utils";
 // import { HoverList } from "@/components/hover-list";
 // import { Profile } from "@/components/profile";
 // import { useAppStore } from "@/store";
@@ -16,6 +17,9 @@ import { HoverList } from "./hover-list";
 // import Search from "./search";
 
 const Header = () => {
+  const pathname = usePathname()
+  const isAdminPannel = pathname.startsWith('/admin');
+  console.log('Header ~ pathname:', pathname);
   const router = useRouter();
   //   const { setOpenModal } = useAppStore();
 
@@ -25,7 +29,7 @@ const Header = () => {
   };
   return (
     <>
-      <div className="flex w-full items-center py-6  lg:container px-6 lg:px-0 text-primary-txt ">
+      <div className={cn("flex w-full items-center py-6  lg:container px-6 lg:px-0 text-primary-txt ", isAdminPannel ? 'hidden' : '')}>
         <div className="flex w-[80%] md:w-[60%] lg:w-[70%]">
           <h1 className="hidden md:block md:text-5xl md:mr-10 lg:mr-32">ABC</h1>
           <div className="flex items-center mr-4 md:mr-[5%] lg:mr-[10%]">

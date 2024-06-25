@@ -138,7 +138,7 @@ const Side = () => {
           ))}
           <MenuItem
             onClick={() =>
-              signOut({ redirect: true, callbackUrl: "/auth/admin" })
+              signOut({ redirect: true, callbackUrl: "/admin" })
             }
             icon={<LuLogOut />}
           >
