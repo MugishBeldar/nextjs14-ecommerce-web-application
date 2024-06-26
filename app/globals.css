@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  
   :root {
     --surface: #23262b;
     --custom-font: #7c7c7c;
