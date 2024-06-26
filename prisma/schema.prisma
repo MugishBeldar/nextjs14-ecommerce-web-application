@@ -153,6 +153,11 @@ datasource db {
 
 model User {
     id            String    @id @default(cuid())
+    title         String?
+    firstName     String?
+    middleName    String?
+    lastName      String?
+    gender        String?
     name          String?
     email         String?   @unique
     image         String?
@@ -165,6 +170,7 @@ model User {
     createdAt     DateTime  @default(now())
     updatedAt     DateTime  @updatedAt
     accounts      Account[]
+    address       Address?
 
     @@map("users")
 }
@@ -281,3 +287,18 @@ model OrderProduct {
     quantity  Int
 }
 
+model Address {
+    id                             String  @id @default(cuid())
+    userId                         String  @unique // Foreign key relation to User model
+    mobileno                       String
+    addressNickName                String
+    pincode                        String
+    flateNOBuildingNOCompanyStreet String?
+    landMark                       String
+    localitySectorArea             String
+    state                          String
+    city                           String
+    addressType                    String
+
+    User User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

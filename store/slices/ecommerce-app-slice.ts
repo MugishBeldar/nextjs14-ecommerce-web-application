@@ -7,6 +7,7 @@ import {
   // UserAndProfileTypes,
   // orderTypes,
 } from "@/types";
+import { Address, User } from "@prisma/client";
 // import { User } from "@prisma/client";
 import { StateCreator } from "zustand";
 export interface EcommerceAppSliceTypes {
@@ -57,6 +58,10 @@ export interface EcommerceAppSliceTypes {
   // setProduct: (data: ProductTypes) => void;
   // sameCategoryProduct: ProductTypes[] | [];
   // setSameCategoryProduct: (data: ProductTypes[]) => void;
+  userDetails?: User | null;
+  setUserDetails: (data: User) => void;
+  userAddress?: Address | null;
+  setUserAddress: (data: Address) => void;
 }
 const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   set,
@@ -153,6 +158,14 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   // setSameCategoryProduct: (data: ProductTypes[]) => {
   //   set({ sameCategoryProduct: data });
   // },
+  userDetails: null,
+  setUserDetails: (user: User) => {
+    set({ userDetails: user });
+  },
+  userAddress: null,
+  setUserAddress: (address: Address) => {
+    set({ userAddress: address });
+  },
 });
 
 export { createEcommerceAppSlice };

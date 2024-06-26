@@ -1,6 +1,20 @@
 "use server";
 import { db } from "@/lib/db";
 
+export const findUserByIdDB = async (id: string) => {
+  try {
+    const user = await db.user.findFirst({
+      where: {
+        id,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log("Error in data-access/user.ts", error);
+    return null;
+  }
+};
+
 export const getUserbyEmailDB = async (email: string) => {
   try {
     const user = await db.user.findFirst({
@@ -9,7 +23,7 @@ export const getUserbyEmailDB = async (email: string) => {
       },
       include:{
         profile: true,
-        wishlist:true
+        wishlist:true,
       }
     });
     return user;
@@ -56,3 +70,36 @@ export const updateUser = async (
     
   }
 };
+
+export const updateUserByEmailDB = async ({
+  title,
+  firstName,
+  middleName,
+  lastName,
+  gender,
+  email,
+}:{
+  title:string;
+  firstName:string;
+  middleName:string;
+  lastName:string;
+  gender:string;
+  email:string;
+}) => {
+  try {
+    await db.user.update({
+      where: { email },
+      data: {
+        title,
+        firstName,
+        middleName,
+        lastName,
+        gender,
+        email,
+      },
+    });
+  } catch (error) {
+    console.log("Error in data-access/user.ts", error);
+    return null;
+  }
+}
