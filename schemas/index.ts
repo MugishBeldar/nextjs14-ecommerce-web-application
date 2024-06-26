@@ -37,3 +37,43 @@ export const ProductSchema = z.object({
     message: "Quantity required",
   }),
 });
+
+export const UpdateProfileSchema = z.object({
+  title: z.string().optional(),
+  fName: z.string().optional(),
+  mName: z.string().optional(),
+  lName: z.string().optional(),
+  gender: z.string().optional(),
+  emailid: z.string().email().min(1, {
+    message: "Email is required.",
+  }),
+});
+
+export const UpdateAddressSchema = z.object({
+  userId: z.string().optional(), 
+  mobileno: z.string().min(1, {
+    message: "Mobile Number is required.",
+  }), 
+  addressNickName: z.string().min(1, {
+    message: "Address Nick Name is required.",
+  }), 
+  pincode: z.string().min(1, {
+    message: "Pincode is required.",
+  }), 
+  flateNOBuildingNOCompanyStreet: z.string().optional(), 
+  landMark: z.string().min(1, {
+    message: "LandMark is required.",
+  }), 
+  localitySectorArea: z.string().min(1, {
+    message: "Locality/Sector/Area is required.",
+  }), 
+  state: z.string().min(1, {
+    message: "State is required.",
+  }), 
+  city: z.string().min(1, {
+    message: "City is required.",
+  }), 
+  addressType: z.string().min(1, {
+    message: "Address Type is required.",
+  }), 
+});
