@@ -3,8 +3,8 @@ import { CategoryCarousel, DealOfTheDayCarousel, OfferCarousel } from "@/compone
 export default function Home() {
   return (
     <div className="">
-      <OfferCarousel />
-      <CategoryCarousel />
+      {/* <OfferCarousel />
+      <CategoryCarousel /> */}
       <DealOfTheDayCarousel />
     </div>
   );
