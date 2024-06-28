@@ -50,8 +50,7 @@ const Profile = () => {
   };
 
   const handleLogOut = () => {
-    signOut();
-    router.push("/");
+    signOut({callbackUrl:'/'});
   };
 
   return (
