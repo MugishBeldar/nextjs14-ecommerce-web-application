@@ -28,7 +28,7 @@ export function GoogleSignInButton() {
               />
             </div>
             <div className=" text-secondary-gray">
-              <p className="ml-4 text-black/70 text-lg">Login With Google</p>
+              <p className="ml-4 text-primary-txt text-lg">Login With Google</p>
             </div>
           </div>
         </Button>

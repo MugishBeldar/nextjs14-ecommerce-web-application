@@ -9,6 +9,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import { db } from "./lib/db";
 import { getAdminDetails } from "./actions/admin";
+import { getUserByEmail } from "./actions/user";
 
 export const {
   handlers: { GET, POST },
@@ -49,7 +50,7 @@ export const {
         }*/
       }
       if (session.user && token.sub && token.email) {
-        /*const getUserByEmail = await getUserByEmailAction(token.email);
+        const user = await getUserByEmail(token.email);
         if (token.provider !== "credentials") {
           return {
             ...session,
@@ -58,10 +59,10 @@ export const {
               id: token.sub,
               emailVerified: token.emailVerified,
               provider: token.provider,
-              role: getUserByEmail?.role,
+              role: user?.role,
             },
           };
-        }*/
+        }
       }
       return session;
     },
