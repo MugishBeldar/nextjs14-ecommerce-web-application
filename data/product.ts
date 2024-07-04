@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 
 export const createProductDB = async ({
   productName,
-  description,
+  keyFeatures,
   categoryId,
   price,
   tags,
@@ -13,7 +13,7 @@ export const createProductDB = async ({
   quantity,
 }: {
   productName: string;
-  description: string;
+  keyFeatures: string[];
   categoryId: string;
   price: number;
   tags: string[];
@@ -24,7 +24,7 @@ export const createProductDB = async ({
   const data = await db.products.create({
     data: {
       productName,
-      description,
+      keyFeatures,
       categoryId,
       price,
       tags,
@@ -66,7 +66,7 @@ export const updateProductDB = async (
   id: string,
   productName: string,
   categoryId: string,
-  description: string,
+  keyFeatures: string[],
   images: string[],
   tags: string[],
   price: number,
@@ -80,7 +80,7 @@ export const updateProductDB = async (
     data: {
       productName,
       categoryId,
-      description,
+      keyFeatures,
       tags,
       images,
       price,

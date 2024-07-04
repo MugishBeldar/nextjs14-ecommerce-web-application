@@ -8,14 +8,16 @@ export const createProduct = async (
   value: z.infer<typeof ProductSchema>,
   imagesUrl: string[],
   categoryId: string,
-  tags: string[]
+  tags: string[],
+  keyFeatures: string[]
+  
 ) => {
   const validation = ProductSchema.safeParse(value);
 
   if (!validation.success) {
     return { error: "Invalid Fields!" };
   }
-  const { productName, description, price, discount, qty } =
+  const { productName, price, discount, qty } =
     validation.data;
   const priceInNum = +price;
   const discountInNum = discount ? +discount : 0;
@@ -25,7 +27,7 @@ export const createProduct = async (
   try {
     await createProductDB({
       productName,
-      description,
+      keyFeatures,
       categoryId,
       price: priceInNum,
       tags: tagsInArr,
@@ -65,7 +67,7 @@ export const updateProduct = async (
   id: string,
   productName: string,
   categoryId: string,
-  description: string,
+  keyFeatures: string[],
   tag: string[] | [],
   price: number,
   images:string[],
@@ -83,7 +85,7 @@ export const updateProduct = async (
       id,
       productName,
       categoryId,
-      description,
+      keyFeatures,
       images,
       tagsInArr,
       priceInNum,

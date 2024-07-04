@@ -22,7 +22,6 @@ interface SingleProductProps {
 }
 const SingleProduct = ({ productId }: SingleProductProps) => {
   const user = useAuthUser();
-  console.log('SingleProduct ~ user:', user);
   // const [isMounted, setIsMounted] = useState<boolean>(false);
   // const {
   //   productCarouselImage,
@@ -150,35 +149,16 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
         {/* <div className="border border-primary-gray my-2"></div> */}
         <div className="rounded-lg text-xl my-4 border border-primary-gray">
           <p className="text-2xl font-bold ml-4 mt-2">Key Features</p>
-          {/* {product?.keyFeatures.map((feature, index) => ( */}
-          <li className="text-base md:text-xl p-2 mx-2" >
-            {'lorem ipsum dolor sit am'}
+          {product?.keyFeatures.map((feature, index) => (
+          <li className="text-base md:text-xl p-2 mx-2" key={index}>
+            {feature.charAt(0).toUpperCase() + feature.slice(1)}
           </li>
-          <li className="text-base md:text-xl p-2 mx-2" >
-            {'lorem ipsum dolor sit am'}
-          </li>
-          <li className="text-base md:text-xl p-2 mx-2" >
-            {'lorem ipsum dolor sit am'}
-          </li>
-          <li className="text-base md:text-xl p-2 mx-2" >
-            {'lorem ipsum dolor sit am'}
-          </li>
-          <li className="text-base md:text-xl p-2 mx-2" >
-            {'lorem ipsum dolor sit am'}
-          </li>
-          <li className="text-base md:text-xl p-2 mx-2" >
-            {'lorem ipsum dolor sit am'}
-          </li>
-          {/* ))} */}
+          ))}
         </div>
       </div>
     </div>
 
   )
-    // <div>
-    //   <h1>product page</h1>
-    // </div>
-    ;
 };
 
 export default SingleProduct;

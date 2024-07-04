@@ -17,7 +17,7 @@ export interface ProductTypes {
   productName: string;
   price: number;
   discount: number;
-  description: string;
+  keyFeatures: string[];
   images: string[];
   tags: string[];
   categoryId: string;

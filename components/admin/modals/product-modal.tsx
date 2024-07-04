@@ -22,7 +22,7 @@ interface ProductModalProps {
 const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
   const [productName, setProductName] = useState<string | "">("");
   const [categoryName, setCategoryName] = useState<string | "">("");
-  const [description, setDescription] = useState<string | "">("");
+  const [keyFeatures, setKeyFeatures] = useState<string[]>([]);
   const [categoryId, setCategoryId] = useState<string | "">("");
   const [tag, setTags] = useState<string[] | []>([]);
   const [price, setPrice] = useState<number>();
@@ -44,7 +44,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
         }
         setProductName(response.productName);
         setDiscount(response.discount);
-        setDescription(response.description);
+        setKeyFeatures(response.keyFeatures);
         setPrice(response.price);
         if (response.images) setImages([...response.images]);
         setQuantity(response.quantity);
@@ -69,7 +69,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
         viewingProduct.id,
         productName,
         categoryId,
-        description,
+        keyFeatures,
         tag,
         price,
         images,
@@ -87,7 +87,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
   };
   return (
     <Dialog open={productModal} onOpenChange={setProductModal}>
-      <DialogContent className="bg-surface border border-secondary-black min-h-[600px]">
+      <DialogContent className="bg-surface border border-secondary-black min-h-[800px]">
         <Tabs defaultValue="information" className="w-full">
           <div className="flex flex-col">
             <div className="flex-1">
@@ -122,17 +122,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                           />
                         </div>
                       </div>
-                      <div className="mb-4">
-                        <div className="text-custom-font">Description</div>
-                        <div>
-                          <Textarea
-                            onChange={(e) => setDescription(e.target.value)}
-                            value={description}
-                            className="font-light bg-transparent border-secondary-black focus:outline-none placeholder:text-custom-font"
-                            placeholder="Type something"
-                          />
-                        </div>
-                      </div>
+                      
                       <div className="text-custom-font">Category</div>
                       <div className="mb-4">
                         <Select
@@ -155,9 +145,23 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                           </SelectContent>
                         </Select>
                       </div>
+                      <div className="mb-4 ">
+                        <div className="text-custom-font ">Key features</div>
+                        <div className="max-h-[300px] overflow-y-scroll scrollbar-hide ">
+                        <TagsInput
+                            value={keyFeatures}
+                            onChange={setKeyFeatures}
+                            name="keyFeatures"
+                            placeHolder="Enter key features"
+                            classNames={{
+                              input: "bg-[#23262b]",
+                            }}
+                          />
+                        </div>
+                      </div>
                       <div>
                         <div className="text-custom-font">Tags</div>
-                        <div>
+                        <div className="max-h-[100px] overflow-y-scroll scrollbar-hide">
                           <TagsInput
                             value={tag}
                             onChange={setTags}
@@ -169,6 +173,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                           />
                         </div>
                       </div>
+                      
                     </div>
                   )}
                   {tab === "pricing" && (

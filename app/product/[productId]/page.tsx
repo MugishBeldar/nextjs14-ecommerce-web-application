@@ -1,7 +1,4 @@
-// import { getProductFromId } from "@/data-access/products";
-import { SingleProduct } from "@/components/user";
-import { redirect } from "next/navigation";
-// import { ProductReview, SimilarProducts, SingleProduct } from "../../../../../components/single-products";
+import { ProductReview, SingleProduct } from "@/components/user";
 
 interface SingleProductPageProps {
   params: {
@@ -12,8 +9,8 @@ const SingleProductPage = ({ params }: SingleProductPageProps) => {
   return (
     <div>
       <SingleProduct productId={params.productId} />
-      {/* <ProductReview />
-      <SimilarProducts /> */}
+      <ProductReview productId={params.productId}/>
+      {/* <SimilarProducts /> */}
     </div>
   );
 };

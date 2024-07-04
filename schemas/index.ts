@@ -23,9 +23,9 @@ export const ProductSchema = z.object({
   productName: z.string().min(1, {
     message: "Product name required",
   }),
-  description: z.string().min(1, {
-    message: "Product description required",
-  }),
+  // description: z.string().min(1, {
+  //   message: "Product description required",
+  // }),
   category: z.string().min(1, {
     message: "Category required",
   }),
@@ -76,4 +76,42 @@ export const UpdateAddressSchema = z.object({
   addressType: z.string().min(1, {
     message: "Address Type is required.",
   }), 
+});
+
+
+export const ReviewSchema = z.object({
+  reviewDescription: z.string().min(1, {
+    message: "Review is required.",
+  }),
+  rating: z
+    .string()
+    .min(1, {
+      message: "Rating must be at least 1.",
+    })
+    .max(5, {
+      message: "Rating must be at most 5.",
+    })
+    .refine(
+      (value) => {
+        const parsedValue = parseFloat(value);
+        return !isNaN(parsedValue) && parsedValue >= 1 && parsedValue <= 5;
+      },
+      {
+        message:
+          "Rating must be a number between 1 and 5, with up to one decimal place.",
+      }
+    )
+    .refine(
+      (value) => {
+        const parsedValue = parseFloat(value);
+        
+        const isIntegerOrOneDecimalPlace =
+          Number.isInteger(parsedValue) || (parsedValue * 10) % 10 === 0;
+        return isIntegerOrOneDecimalPlace;
+      },
+      {
+        message:
+          "Rating must be a whole number or a floating point value with up to one decimal place between 1 and 5.",
+      }
+    ),
 });
