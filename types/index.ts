@@ -55,3 +55,17 @@ export interface CategoryWithProductCount {
 export interface ProductsEntity {
   id: string;
 }
+
+export interface CartTypes {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  products?: CartProductTypes[] | [];
+}
+export interface CartProductTypes {
+  id: string;
+  cartId: string;
+  productId: string;
+  quantity: number;
+  product: ProductTypes;
+}
