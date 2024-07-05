@@ -4,7 +4,7 @@ import UserAddress from "./user-address";
 import UserProfile from "./user-profile";
 import SingleProduct from "./single-product";
 import ProductReview from "./product-review";
-
+import Cart from "./cart";
 export {
   Header,
   MyAccount,
@@ -12,4 +12,5 @@ export {
   UserAddress,
   SingleProduct,
   ProductReview,
+  Cart,
 }

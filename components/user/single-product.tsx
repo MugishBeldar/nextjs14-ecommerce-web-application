@@ -1,31 +1,26 @@
 "use client";
 
-import { ProductTypes } from "@/types";
-import { IndianRupee } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import { useAppStore } from "@/store";
-import { Button } from "../ui/button";
-import { getProductFromProductId } from "@/actions/product";
-import StarRating from "./rating-stars";
-import { useAuthUser } from "@/hooks/useAuthUser";
-import { AddToCartModal } from "./modal";
-import { SingleProductCarousel } from "./carousel";
 
+import { useAppStore } from "@/store";
+import { ProductTypes } from "@/types";
+import { FaStar } from "react-icons/fa";
+import { AddToCartModal } from "./modal";
+import { addToCart } from "@/actions/cart";
+import { useAuthUser } from "@/hooks/useAuthUser";
+import { SingleProductCarousel } from "./carousel";
+import { getProductFromProductId } from "@/actions/product";
+
+import { Button } from "../ui/button";
 interface SingleProductProps {
   productId: string;
 }
 const SingleProduct = ({ productId }: SingleProductProps) => {
   // const [isMounted, setIsMounted] = useState<boolean>(false);
-  const {
-    productCarouselImage,
-    setOpenModal,
-    setAddToCartProduct,
-    addToCartProduct,
-  } = useAppStore();
+  const {productCarouselImage,setOpenModal } = useAppStore();
   const [product, setProduct] = useState<ProductTypes>();
+  const user = useAuthUser();
   useEffect(() => {
     // setIsMounted(true);
     async function getData() {
@@ -37,22 +32,21 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
     getData();
   }, [productId]);
 
-  // if (!isMounted) {
-  //   return null;
-  // }
-
-  const handleAddToCart = (product: ProductTypes) => {
-    setOpenModal(true);
-    const updatedCart = [...addToCartProduct, product];
-    setAddToCartProduct(updatedCart);
+  const handleAddToCart = async (product:ProductTypes, productId: string ) => {
+    if (user && user.user.email && productId) {
+      let quantity = 1;
+      setOpenModal(true);
+      const response = await addToCart(user.user.id, productId, quantity);
+      console.log('handleCart ~ response:', response);
+    } else {
+      // router.push("/auth");
+      // toast.error("Please sign in to proceed.");
+    }
   };
 
   return (
     product && <div className="md:flex w-full px-6 lg:container lg:px-0 pt-8 text-primary-txt">
       <div className="relative w-full mt-5 md:w-1/2 md:mr-5">
-        {/* <div className="absolute text-red-400 flex justify-end w-full lg:ml-[-50px] ">
-          <FaHeart size={22} />
-        </div> */}
         <div className="flex justify-around ">
           <div className="hidden  md:visible md:flex ">
             <SingleProductCarousel
@@ -63,10 +57,7 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
           <div className="relative w-[300px] h-[400px] flex justify-center items-center">
             <Image
               src={productCarouselImage?.length ? productCarouselImage : product.images[0]}
-              // src={product?.images.length ? product.images[0] : ''}
               alt="singleproduct"
-              // width={500}
-              // height={500}
               loading="lazy"
               layout="fill"
               objectFit="contain"
@@ -76,8 +67,6 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
       </div>
       <div className="w-full md:w-1/2">
         <h1 className="text-sm sm:text-lg md:text-xl">{product?.productName}</h1>
-        {/* StarRating component if available */}
-        {/* <StarRating rating={product ? 5 : 0} /> */}
         <p className="flex w-10 justify-center items-center text-sm my-2 rounded-md bg-primary-btn font-bold ">
           <p className="text-primary-dark font-medium mt-[2px] ml-1">
             {/* {product?.rate} */}
@@ -88,7 +77,6 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
           </p>
         </p>
         <div className="my-4">
-          {/* Pricing Section */}
           <div className="flex items-center">
             <div className=" flex item-center">
               <div>
@@ -97,7 +85,6 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
                     product?.price -
                     (product?.price * product?.discount) / 100
                   ).toLocaleString("us")}
-                  {/* {Number(product?.discountedPrice).toLocaleString("us")} */}
                 </p>
                 <p className="text-base text-primary-gray">(inc. all Taxes)</p>
               </div>
@@ -108,7 +95,6 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
               {product?.price.toLocaleString("us")}
             </div>
           </div>
-          {/* Buttons Section */}
           <div className="flex justify-between items-center my-4">
             <Button className=" text-primary-dark font-medium bg-primary-btn px-4 py-2 rounded-lg cursor-pointer">
               Buy Now
@@ -116,7 +102,7 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
             <Button
               onClick={() => {
                 if (product) {
-                  handleAddToCart(product);
+                  handleAddToCart(product, product.id);
                 }
               }}
               className=" border border-white px-4 py-2 rounded-lg cursor-pointer bg-transparent"
@@ -124,9 +110,8 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
               Add to Cart
             </Button>
           </div>
-          <AddToCartModal product={product} />
+          <AddToCartModal productId={product.id} />
         </div>
-        {/* <div className="border border-primary-gray my-2"></div> */}
         <div className="rounded-lg text-xl my-4 border border-primary-gray">
           <p className="text-2xl font-bold ml-4 mt-2">Key Features</p>
           {product?.keyFeatures.map((feature, index) => (

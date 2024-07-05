@@ -62,8 +62,6 @@ export interface EcommerceAppSliceTypes {
   setUserDetails: (data: User) => void;
   userAddress?: Address | null;
   setUserAddress: (data: Address) => void;
-  addToCartProduct: ProductTypes[];
-  setAddToCartProduct: (data: ProductTypes[]) => void;
   productCarouselImage?: string;
   setProductCarouselImage: (data: string) => void;
 }
@@ -169,10 +167,6 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   userAddress: null,
   setUserAddress: (address: Address) => {
     set({ userAddress: address });
-  },
-  addToCartProduct:[],
-  setAddToCartProduct: (products: ProductTypes[]) => {
-    set({ addToCartProduct: products });
   },
   productCarouselImage: '',
   setProductCarouselImage: (image: string ) => {

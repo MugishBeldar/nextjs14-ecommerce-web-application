@@ -1,29 +1,39 @@
 "use client";
-import { useAppStore } from "@/store";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-} from "@/components/ui/dialog";
-import { ProductTypes } from "@/types";
-import { DialogTitle} from "@radix-ui/react-dialog";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import { useAppStore } from "@/store";
+import { getProductFromProductId } from "@/actions/product";
+
+import { ProductTypes } from "@/types";
 import { Button } from "@/components/ui/button";
+import { DialogTitle} from "@radix-ui/react-dialog";
+import {Dialog,DialogContent,DialogDescription,DialogHeader} from "@/components/ui/dialog";
 
 interface AddToCartModalProps {
-  product: ProductTypes;
+  productId: string;
 }
-const AddToCartModal = ({ product }: AddToCartModalProps) => {
+const AddToCartModal = ({ productId }: AddToCartModalProps) => {
+  const [cartSingleProduct, setCartSingleProduct] = useState<ProductTypes>();
   const { openModal, setOpenModal } = useAppStore();
   const router = useRouter();
 
+  useEffect(()=>{
+    (async function(){
+      const response = await getProductFromProductId(productId);
+      if(response) {
+        setCartSingleProduct(response)
+      }
+    })()
+  },[productId])
+
   const handleProceedToCart = () => {
-    // router.push("/cart");
+    router.push("/cart");
   };
   return (
-    <div className="w-full">
+      cartSingleProduct && <div className="w-full">
       <Dialog open={openModal} onOpenChange={setOpenModal}>
         <DialogContent className="bg-primary-dark border-none lg:w-[100%]">
           <DialogHeader>
@@ -34,25 +44,25 @@ const AddToCartModal = ({ product }: AddToCartModalProps) => {
               <div className="md:flex md:justify-center md:items-center my-4 pb-4 border-b">
                 <div className="flex justify-center items-center">
                   <Image
-                    src={product?.images[0]}
+                    src={cartSingleProduct?.images[0]}
                     alt="singleproduct"
                     width={300}
                     height={200}
                   />
                 </div>
                 <div className="text-primary-txt text-lg md:text-base mx-4  ">
-                  {product?.productName}
+                  {cartSingleProduct?.productName}
                 </div>
                 <div className="">
                   <p className="text-center md:flex md:item-center text-lg text-primary-txt font-bold">
                     ${Math.round(
-                      product?.price -
-                      (product?.price * product?.discount) / 100
+                      cartSingleProduct?.price -
+                      (cartSingleProduct?.price * cartSingleProduct?.discount) / 100
                     ).toLocaleString("us")}
                   </p>
                   <p className="text-center text-sm md:flex md:items-center text-primary-gray line-through mx-2">
                     <span className="text-xl">$</span>
-                    {product?.price.toLocaleString("us")}
+                    {cartSingleProduct?.price.toLocaleString("us")}
                   </p>
                 </div>
               </div>
@@ -67,7 +77,7 @@ const AddToCartModal = ({ product }: AddToCartModalProps) => {
         </DialogContent>
       </Dialog>
     </div>
-  );
-};
+    )
+}
 
 export default AddToCartModal;
