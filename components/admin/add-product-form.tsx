@@ -17,14 +17,16 @@ import { getCategories } from "@/actions/category";
 import { createProduct, getProducts } from "@/actions/product";
 
 import { Input } from "@/components/ui/input";
-import {Form,FormControl,FormField,FormItem,FormLabel,FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 
 const AddProductForm = () => {
   const [tagError, setTagError] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string[] | []>([]);
+  const [keyFeaturesError, setKeyFeaturesError] = useState<boolean>(false);
+  const [selectedTags, setSelectedTags] = useState<string[] | []>([]);
+  const [selectedKeyFeatures, setSelectedKeyFeatures] = useState<string[] | []>([]);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string[] | []>([]);
   const { setProductsData, setToggleSheet, setCategoriesData, categoriesData } = useAppStore();
 
@@ -42,7 +44,7 @@ const AddProductForm = () => {
     resolver: zodResolver(ProductSchema),
     defaultValues: {
       productName: "",
-      description: "",
+      // description: "",
       category: "",
       price: "",
       discount: "",
@@ -57,9 +59,13 @@ const AddProductForm = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof ProductSchema>) => {
-    if (selected.length) {
-      setTagError(true);
-      const tags = selected;
+    const isTagError = !selectedTags.length;
+    const isKeyFeatureError = !selectedKeyFeatures.length;
+
+    if (!isTagError && !isKeyFeatureError) {
+      // setTagError(true);
+      const tags = selectedTags;
+      const keyFeatures = selectedKeyFeatures;
       const category = categoriesData.find(
         (category) => category.categoryName === values.category
       );
@@ -68,7 +74,8 @@ const AddProductForm = () => {
           values,
           uploadedImageUrl,
           category?.id,
-          tags
+          tags,
+          keyFeatures
         );
         if (error) {
           toast.error("Please provide a valid product data.");
@@ -78,7 +85,7 @@ const AddProductForm = () => {
         if (success) {
           toast.success("Product created successfully.");
           setTagError(false);
-
+          setKeyFeaturesError(false);
           setToggleSheet(false);
         }
         setUploadedImageUrl([]);
@@ -92,7 +99,12 @@ const AddProductForm = () => {
       form.reset();
       return;
     } else {
-      setTagError(true);
+      if (isTagError) {
+        setTagError(true);
+      }
+      if (isKeyFeatureError) {
+        setKeyFeaturesError(true);
+      }
       return;
     }
   };
@@ -137,7 +149,7 @@ const AddProductForm = () => {
                 />
               </div>
               <div className="w-[98%] ml-1 my-6 text-primary-txt">
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="description"
                   render={({ field }) => (
@@ -153,6 +165,33 @@ const AddProductForm = () => {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                /> */}
+                <FormField
+                  name=""
+                  render={({ field }) => (
+                    <FormItem className="">
+                      <FormLabel className="text-custom-font">Key Features</FormLabel>
+                      <FormControl >
+                        <TagsInput
+                          value={selectedKeyFeatures}
+                          onChange={setSelectedKeyFeatures}
+                          name="keyFeatures"
+                          placeHolder="Enter key features"
+                          classNames={{
+                            input: "bg-[#23262b]",
+                          }}
+                        />
+                      </FormControl>
+                      {tagError ? (
+                        <div className="text-red-600 font-medium">
+                          Tag is required
+                        </div>
+                      ) : (
+                        ""
+                      )}
                       <FormMessage />
                     </FormItem>
                   )}
@@ -175,7 +214,7 @@ const AddProductForm = () => {
                           }}
                           defaultValue={field.value}
                         >
-                          <SelectTrigger  className="w-[98%] ml-1  bg-transparent outline-none border-secondary-black">
+                          <SelectTrigger className="w-[98%] ml-1  bg-transparent outline-none border-secondary-black">
                             <SelectValue placeholder="Select category" />
                           </SelectTrigger>
                           <SelectContent className="placeholder:text-red-900 text-primary-txt hover:bg-surface  bg-primary-background outline-none border-secondary-black">
@@ -270,8 +309,8 @@ const AddProductForm = () => {
                       <FormLabel className="text-custom-font">Tags</FormLabel>
                       <FormControl >
                         <TagsInput
-                          value={selected}
-                          onChange={setSelected}
+                          value={selectedTags}
+                          onChange={setSelectedTags}
                           name="tags"
                           placeHolder="Enter tags"
                           classNames={{

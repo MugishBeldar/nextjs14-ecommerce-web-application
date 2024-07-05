@@ -25,7 +25,8 @@ const MultipleProductCarousel = ({
   const router = useRouter();
   // const { compareProduct, setCompareProduct } = useAppStore();
   const handleClick = (productId: string) => {
-    // router.push(`/product/${productId}}`);
+    console.log("-->",productId)
+    router.push(`/product/${productId}}`);
   };
   // const handleRemove = (id: number, index: number) => {
   //   const newCompareProduct = compareProduct
