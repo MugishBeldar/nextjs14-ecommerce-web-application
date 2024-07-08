@@ -29,28 +29,21 @@ export function SingleProductCarousel({
     <Carousel
       opts={{
         align: "start",
-        
       }}
       orientation="vertical"
-      className="w-full max-w-xs h-[300px]"
+      className="w-full max-w-xs"
     >
-      <CarouselContent className="mt-1 ">
-        {/* {Array.from({ length: 5 }).map((_, index) => ( */}
+      <CarouselContent className="-mt-1 h-[410px]">
         {images &&
           images.map((image, index) => (
-            <CarouselItem key={index} className="pt-1 md:basis-1/3">
-              {/* <div className="p-1">
-              <span className="text-3xl font-semibold">{index + 1}</span>
-            </div> */}
-              <div className="relative w-20 h-20 p-1">
-                <Image
+          <CarouselItem key={index} className="pt-1 md:basis-1/2">
+            <div className="p-1">
+                <div className="relative w-40 h-40 p-1">
+               <Image
                   onClick={() => {
                     handleClick(image);
                   }}
                   loader={imageLoader}
-                  className="h-full w-full"
-                  // height={10}
-                  // width={10}
                   alt="sub-image"
                   src={image}
                   loading="lazy"
@@ -58,13 +51,11 @@ export function SingleProductCarousel({
                   objectFit="contain"
                 />
               </div>
-            </CarouselItem>
-          ))}
+            </div>
+          </CarouselItem>
+        ))}
       </CarouselContent>
-      <CarouselPrevious
-        externalArrow={externalArrow}
-        className="bg-transparent"
-      />
+      <CarouselPrevious externalArrow={externalArrow} className="bg-transparent"/>
       <CarouselNext externalArrow={externalArrow} className="bg-transparent" />
     </Carousel>
   );

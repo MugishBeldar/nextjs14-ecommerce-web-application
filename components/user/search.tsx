@@ -90,14 +90,14 @@ const Search = () => {
         onFocus={() => setShowSearchContainer(true)}
       />
       {showSearchContainer &&
-        <div ref={searchContainerRef} className="absolute  w-full bg-primary-dark shadow-2xl rounded-lg ">
+        <div ref={searchContainerRef} className="absolute max-h-[300px] overflow-y-scroll scrollbar-hide w-full bg-primary-dark shadow-2xl rounded-xl ">
           {tagsSuggetion &&
             tagsSuggetion.map((t, index: number) => {
               const isSelected = index === selectedIndex;
               return (
                 <div
                   key={index}
-                  className={cn('m-4 border-b border-gray-200/15', isSelected ? "border-b-gray-400" : "")}
+                  className={cn('m-4 border-b border-gray-200/15 ', isSelected ? "border-b-gray-400" : "")} // fix this div 
                   onMouseEnter={() => setSelectedIndex(index)}
                 >
                   <p

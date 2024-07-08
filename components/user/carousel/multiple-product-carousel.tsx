@@ -25,7 +25,7 @@ const MultipleProductCarousel = ({
   const router = useRouter();
   // const { compareProduct, setCompareProduct } = useAppStore();
   const handleClick = (productId: string) => {
-    console.log("-->",productId)
+    console.log("-->", productId)
     router.push(`/product/${productId}}`);
   };
   // const handleRemove = (id: number, index: number) => {
@@ -45,21 +45,20 @@ const MultipleProductCarousel = ({
                   key={index}
                   className="basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4  mx-3 "
                 >
-                  <div className="relative flex flex-col px-4 py-5 sm:p-6 border rounded-lg">
+                  <div className="relative flex flex-col px-4 py-5 sm:p-6 border rounded-lg cursor-pointer">
                     <div className="absolute text-red-400 flex justify-end w-full ml-[-50px]">
                       <FaHeart size={22} className="cursor-pointer" />
                     </div>
                     <div className="w-full flex-1 text-primary-txt">
-                      <div className="inline-flex justify-center mt-10 rounded-lg w-full">
+                      <div className="relative h-[200px] inline-flex justify-center mt-10 rounded-lg w-full">
                         <Image
                           onClick={() => handleClick(product.id)}
                           loader={imageLoader}
-                          className="h-full w-full"
-                          height={200}
-                          width={80}
                           alt={product.productName}
                           src={product.images[0]}
                           loading="lazy"
+                          layout="fill"
+                          objectFit="contain"
                         />
                       </div>
                       <div className="w-full text-sm sm:text-base  lg:text-xl">
