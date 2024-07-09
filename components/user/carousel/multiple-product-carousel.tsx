@@ -46,7 +46,6 @@ const MultipleProductCarousel = ({
                   className="basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4  mx-3 "
                 >
                   <div className="relative flex flex-col px-4 py-5 sm:p-6 border rounded-lg cursor-pointer">
-                    <p>{product.id}</p>
                     <div className="absolute text-red-400 flex justify-end w-full ml-[-50px]">
                       <FaHeart size={22} className="cursor-pointer" />
                     </div>

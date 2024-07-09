@@ -10,8 +10,8 @@ export const createProduct = async (
   imagesUrl: string[],
   categoryId: string,
   tags: string[],
-  keyFeatures: string[]
-
+  keyFeatures: string[],
+  productThumbnail: string,
 ) => {
   const validation = ProductSchema.safeParse(value);
 
@@ -35,6 +35,7 @@ export const createProduct = async (
       images: imagesUrl,
       discount: discountInNum,
       quantity: qtyInNum,
+      thumbnail: productThumbnail,
     });
 
     return { success: "Product successfully created" };
@@ -73,7 +74,8 @@ export const updateProduct = async (
   price: number,
   images: string[],
   discount: number,
-  quantity: number
+  quantity: number,
+  productThumbnail:string
 ) => {
   try {
     const product = await getProductFromIdDB(id);
@@ -91,7 +93,8 @@ export const updateProduct = async (
       tagsInArr,
       priceInNum,
       discountInNum,
-      qtyInNum
+      qtyInNum,
+      productThumbnail
     );
     return { success: "Product successfully updated" };
   } catch (err: unknown) {

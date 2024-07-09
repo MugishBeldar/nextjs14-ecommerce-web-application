@@ -21,14 +21,21 @@ interface ProductsTableProps {
 const ProductsTable = ({ products }: ProductsTableProps) => {
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   const [productModal, setProductModal] = useState<boolean>(false);
   const [currentItems, setCurrentItems] = useState<ProductTypes[] | []>([]);
   const [searchProducts, setSearchProducts] = useState<ProductTypes[] | []>([]);
+
   const { productsData, setviewingProductId, categoriesData, setProductsData, setCategoriesData } = useAppStore();
   
   const itemsPerPage = 10;
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
+
+  useEffect(() => {
+    setIsMounted(true);
+
+  }, []);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -57,6 +64,10 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
       setCurrentItems(result);
     }
   }, [productsData, firstIndex, lastIndex]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
