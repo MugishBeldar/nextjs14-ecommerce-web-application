@@ -50,7 +50,7 @@ const CompareDrawer = ({
                       </div>
                       <div className="flex justify-center items-center my-3">
                         <Image
-                          src={compareProduct[index].images[0]}
+                          src={compareProduct[index].thumbnail}
                           alt="Product Image"
                           width={100}
                           height={100}

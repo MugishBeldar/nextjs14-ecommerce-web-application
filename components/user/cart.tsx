@@ -65,7 +65,7 @@ const Cart = () => {
                 <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
                   <div className="w-[170px] h-[170px] md:col-span-1">
                     <Image
-                      src={product.product.images[0]}
+                      src={product.product.thumbnail}
                       alt={product.product.productName}
                       width={300}
                       height={350}

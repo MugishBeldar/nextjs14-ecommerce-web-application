@@ -56,7 +56,7 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
           </div>
           <div className="relative w-[300px] h-[400px] flex justify-center items-center">
             <Image
-              src={productCarouselImage?.length ? productCarouselImage : product.images[0]}
+              src={productCarouselImage?.length ? productCarouselImage : product.thumbnail}
               alt="singleproduct"
               loading="lazy"
               layout="fill"
