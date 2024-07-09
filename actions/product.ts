@@ -1,6 +1,7 @@
 'use server';
 
-import { createProductDB, deleteProdcutDB, getAllTagsDB, getProductDB, getProductFromIdDB, updateProductDB } from "@/data/product";
+import { createProductDB, deleteProdcutDB, getAllTagsDB, getProductDB, getProductFromIdDB, getProductFromTagDB, updateProductDB } from "@/data/product";
+import { db } from "@/lib/db";
 import { ProductSchema } from "@/schemas";
 import { z } from "zod";
 
@@ -10,7 +11,7 @@ export const createProduct = async (
   categoryId: string,
   tags: string[],
   keyFeatures: string[]
-  
+
 ) => {
   const validation = ProductSchema.safeParse(value);
 
@@ -70,7 +71,7 @@ export const updateProduct = async (
   keyFeatures: string[],
   tag: string[] | [],
   price: number,
-  images:string[],
+  images: string[],
   discount: number,
   quantity: number
 ) => {
@@ -112,18 +113,18 @@ export const getProductFromProductId = async (id: string) => {
 };
 
 
-export const deleteProduct = async (id:string) => {
+export const deleteProduct = async (id: string) => {
   try {
-      const product = await getProductFromIdDB(id);
-      if (!product) return { error: "product not found" };
-      await deleteProdcutDB(id);
-      return { success: "Product successfully deleted" };
-    } catch (err: unknown) {
-      return {
-        error: "Failed to delete Product",
-      };
-    }
-} 
+    const product = await getProductFromIdDB(id);
+    if (!product) return { error: "product not found" };
+    await deleteProdcutDB(id);
+    return { success: "Product successfully deleted" };
+  } catch (err: unknown) {
+    return {
+      error: "Failed to delete Product",
+    };
+  }
+}
 
 
 export const getAllTags = async () => {
@@ -134,3 +135,22 @@ export const getAllTags = async () => {
     console.log("Error while getting all tags", error);
   }
 };
+
+// const posts = await prisma.post.findMany({
+//   where: {
+//     tags: {
+//       hasEvery: ['databases', 'typescript'],
+//     },
+//   },
+// })
+
+export const getProductsFromTag = async ({ searchField }: { searchField: string }) => {
+  console.log('getProductsFromTag ~ searchField:', searchField);
+  try {
+    const products = await getProductFromTagDB({ searchField});
+    console.log('products:---->', products);
+    return products;
+  } catch (error) {
+    console.log("Error while getting products from tag", error)
+  }
+}

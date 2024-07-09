@@ -64,6 +64,12 @@ export interface EcommerceAppSliceTypes {
   setUserAddress: (data: Address) => void;
   productCarouselImage?: string;
   setProductCarouselImage: (data: string) => void;
+  filterProduct: ProductTypes[];
+  setFilterProduct: (data: ProductTypes[]) => void;
+  compareProduct: ProductTypes[];
+  setCompareProduct: (data: ProductTypes[]) => void;
+  compareLimitExceeded?: boolean;
+  setCompareLimitExceeded: (data: boolean) => void;
 }
 const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   set,
@@ -171,6 +177,18 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   productCarouselImage: '',
   setProductCarouselImage: (image: string ) => {
     set({ productCarouselImage: image });
+  },
+  filterProduct:[],
+  setFilterProduct: (products: ProductTypes[]) => {
+    set({ filterProduct: products });
+  },
+  compareProduct:[],
+  setCompareProduct: (products: ProductTypes[]) => {
+    set({ compareProduct: products });
+  },
+  compareLimitExceeded: false,
+  setCompareLimitExceeded: (open: boolean) => {
+    set({ compareLimitExceeded: open });
   },
 });
 
