@@ -53,7 +53,7 @@ export const getProductFromIdDB = async (id: string) => {
     where: {
       id,
     },
-    include:{
+    include: {
       category: true,
       carts: true,
       wishlist: true,
@@ -115,4 +115,19 @@ export async function getAllTagsDB() {
   );
 
   return uniqueTags;
+}
+
+export async function getProductFromTagDB({ searchField }: { searchField: string }) {
+  try {
+    const products = await db.products.findMany({
+      where: {
+        tags: {
+          hasEvery: [searchField]
+        }
+      }
+    })
+    return products;
+  } catch (error) {
+    console.log('Error while getting product from tag:---->', error);
+  }
 }

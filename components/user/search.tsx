@@ -104,6 +104,8 @@ const Search = () => {
                     key={index}
                     onClick={() => {
                       router.push(`/search/${encodeURIComponent(t)}`);
+                      setShowSearchContainer(false);
+                      setSearchTerm('');
                     }}
                     className="truncate mb-4 cursor-pointer"
                   >
