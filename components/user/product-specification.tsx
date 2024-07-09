@@ -1,25 +1,15 @@
 "use client";
 
-import { getCategories } from "@/actions/category";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import useDebounce from "@/hooks/useDebounce";
-import {
-  cn,
-  generatePriceRanges,
-  // generateBrands,
-  // generateCategories,
-  filterProducts,
-  sortByProduct,
-} from "@/lib/utils";
-import { useAppStore } from "@/store";
-import { CategoryTypes, ProductTypes } from "@/types";
 import React, { ChangeEvent, useEffect, useState } from "react";
+
+// generateBrands,
+import { useAppStore } from "@/store";
+import useDebounce from "@/hooks/useDebounce";
+import { getCategories } from "@/actions/category";
+import { CategoryTypes, ProductTypes } from "@/types";
+import {cn,generatePriceRanges,filterProducts,sortByProduct } from "@/lib/utils";
+
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface ProductSpecificationProps {
   category?: boolean;
@@ -36,24 +26,21 @@ const ProductSpecification = ({
   sortBy,
   searchedProducts,
 }: ProductSpecificationProps) => {
-  const [selectCategories, setSelectCategories] = useState<string[]>([]);
+  // const [brands, setBrands] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<string[]>([]);
   const [selectPrices, setSelectPrices] = useState<string[]>([]);
   const [selectBrands, setSelectBrands] = useState<string[]>([]);
   const [sortByProducts, setSortByProducts] = useState<string>("");
+  const [categories, setCategories] = useState<CategoryTypes[]>([]);
+  const [selectCategories, setSelectCategories] = useState<string[]>([]);
+
+  const { filterProduct, setFilterProduct } = useAppStore();
 
   // Debounced values for filtering and sorting
-  const debouncedSelectCategories = useDebounce(selectCategories, 300);
   const debouncedSelectPrices = useDebounce(selectPrices, 300);
   const debouncedSelectBrands = useDebounce(selectBrands, 300);
   const debouncedSortByProducts = useDebounce(sortByProducts, 300);
-
-  // State variables to hold filter options (price ranges, brands, categories)
-  const [priceRange, setPriceRange] = useState<string[]>([]);
-  // const [brands, setBrands] = useState<string[]>([]);
-  const [categories, setCategories] = useState<CategoryTypes[]>([]);
-
-  // Zustand store usage
-  const { filterProduct, setFilterProduct } = useAppStore();
+  const debouncedSelectCategories = useDebounce(selectCategories, 300);
 
   // Initialize filter options based on products
   useEffect(() => {
@@ -83,20 +70,16 @@ const ProductSpecification = ({
 
   // Filter products whenever the debounced filter criteria change
   useEffect(() => {
+    
     const filtered = filterProducts({
+      categories,
       products: searchedProducts,
       selectCategories: debouncedSelectCategories,
       selectPrices: debouncedSelectPrices,
       selectBrands: debouncedSelectBrands,
     });
     setFilterProduct(filtered);
-  }, [
-    debouncedSelectCategories,
-    debouncedSelectPrices,
-    debouncedSelectBrands,
-    searchedProducts,
-    setFilterProduct,
-  ]);
+  }, [debouncedSelectCategories, debouncedSelectPrices, debouncedSelectBrands, searchedProducts, setFilterProduct, categories]);
 
   // Sort products whenever the debounced sorting criteria change
   useEffect(() => {

@@ -1,10 +1,8 @@
 "use client";
+
 import { useAppStore } from "@/store";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-} from "@/components/ui/dialog";
+
+import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog";
 
 const CompareModal = () => {
   const { compareLimitExceeded, setCompareLimitExceeded } = useAppStore();
