@@ -15,7 +15,12 @@ interface SearchBarProps<T> {
 
 const SearchBar = <T,>({ data, searchField, onSearchResults, placeholder = "Search...",}: SearchBarProps<T>) => {
   const [searchTerms, setSearchTerms] = useState<string>("");
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   const debouncedSearchValue = useDebounce(searchTerms, 300);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (debouncedSearchValue && debouncedSearchValue.length > 0) {
@@ -41,6 +46,10 @@ const SearchBar = <T,>({ data, searchField, onSearchResults, placeholder = "Sear
       setSearchTerms("");
     }
   };
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div className="relative block">

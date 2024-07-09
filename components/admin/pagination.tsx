@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { cn } from '@/lib/utils';
@@ -13,6 +13,16 @@ interface PaginationComponentProps {
 }
 
 const PaginationComponent: React.FC<PaginationComponentProps> = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => {
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
