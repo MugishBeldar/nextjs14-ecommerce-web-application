@@ -1,40 +1,25 @@
 "use client";
 import { useEffect, useState } from "react";
-// import { dealOfTheDay } from "@/data-access/products";
-import { ProductTypes } from "@/types";
+
 import { useAppStore } from "@/store";
+import { CompareModal } from "./modal";
+import { ProductTypes } from "@/types";
+import CompareDrawer from "./compare-drawer";
+import FilterProducts from "./filter-products";
+import { capitalizeEachWord } from "@/lib/utils";
 import { getProductsFromTag } from "@/actions/product";
 import ProductSpecification from "./product-specification";
-import FilterProducts from "./filter-products";
-import CompareDrawer from "./compare-drawer";
-import { CompareModal } from "./modal";
-// import { ProductSpecification } from "../product-specification";
-// import FilterProducts from "../filter-products/filter-products";
-// import { CompareDrawer } from "../compare-drawer";
-// import CompareModal from "../compare-drawer/compare-product-modal";
-// import { usePathname } from "next/navigation";
+
 interface SearchProductsProps {
   searchField: string;
 }
 const SearchProducts = ({ searchField }: SearchProductsProps) => {
-  console.log('SearchProducts ~ searchField:', searchField);
-  const [searchedProducts, setsearchedProducts] = useState<ProductTypes[] | []>([]);
   const [isOpenDrawer, setIsOpenDrawer] = useState<boolean>(false);
+  const [searchedProducts, setsearchedProducts] = useState<ProductTypes[] | []>([]);
 
-  // const pathname = usePathname()
-  // const { searchTerm, filterProduct } = useAppStore();
   const { filterProduct  } = useAppStore();
 
   useEffect(() => {
-    // const items = dealOfTheDay.filter((item: ProductTypes) => {
-    //   return item.title
-    //     .split(" ")
-    //     .join("")
-    //     .toLowerCase()
-    //     .trim()
-    //     .includes(searchField.toLowerCase().trim());
-    // });
-    // if (items.length) setsearchedProducts(items);
     (async function(){
       const response = await getProductsFromTag({searchField});
       if(response?.length) {
@@ -48,7 +33,7 @@ const SearchProducts = ({ searchField }: SearchProductsProps) => {
       {/* heading */}
       <div className="w-full h-16 flex items-center">
         <p className="text-2xl font-bold">
-          Result for {`"${searchField}"`}{" "}
+          Result for {`"${capitalizeEachWord(searchField)}"`}{" "}
           <span className="text-base text-slate-300 font-medium">{`(${searchedProducts.length})`}</span>
         </p>
       </div>
