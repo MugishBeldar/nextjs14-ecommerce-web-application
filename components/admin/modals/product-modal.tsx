@@ -28,6 +28,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
   const [price, setPrice] = useState<number>();
   const [discount, setDiscount] = useState<number>();
   const [images, setImages] = useState<string[] | []>([]);
+  const [productThumbnail, setProductThumbnail] = useState<string>('');
   const [quantity, setQuantity] = useState<number>();
   const { categoriesData, setProductsData, viewingProductId, viewingProduct, setViewingProduct } = useAppStore();
   useEffect(() => {
@@ -59,9 +60,20 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
       setImages((prevImages) => [...prevImages, uploaded.info.url]);
     }
   };
-  const removeImage = (imageUrl: string) => {
-    setImages((prevImages) => prevImages.filter((image) => image !== imageUrl));
+  const removeImage = (imageUrl: string, actionFor:string) => {
+    if (actionFor === 'thumbnail') {
+      setProductThumbnail('');
+    }
+    if (actionFor === 'image'){
+      setImages((prevImages) => prevImages.filter((image) => image !== imageUrl));
+    }
   };
+
+  const handleProductThumbnail = (uploaded: any) => {
+    if (uploaded?.event === "success") {
+      setProductThumbnail(uploaded.info.url);
+    }
+  }
 
   const handleSave = async () => {
     if (price && discount && quantity && viewingProduct) {
@@ -74,7 +86,8 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
         price,
         images,
         discount,
-        quantity
+        quantity,
+        productThumbnail
       );
       if (success) toast.success("Product updated successfully.");
       if (error) toast.error("Please fill valid details.");
@@ -84,6 +97,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
       }
     }
     setProductModal((prev) => !prev);
+    setProductThumbnail('');
   };
   return (
     <Dialog open={productModal} onOpenChange={setProductModal}>
@@ -233,6 +247,43 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                             style={{ pointerEvents: "auto" }}
                           >
                             <CloudinaryUploadImages
+                              handleUploadSuccess={handleProductThumbnail}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3 mb-4">
+                        {productThumbnail.length > 0 &&
+                          // images.map((imageUrl, index) => (
+                            <div key={productThumbnail} className="relative">
+                              <Image
+                                src={productThumbnail}
+                                alt="image"
+                                width={90}
+                                height={90}
+                                loading="lazy"
+                              />
+                              <div
+                                className="absolute top-[-7px] right-[42px]"
+                                onClick={() => removeImage(productThumbnail, 'thumbnail')}
+                              >
+                                <RxCrossCircled
+                                  size={18}
+                                  color="red"
+                                  className="cursor-pointer"
+                                />
+                              </div>
+                            </div>
+                          // ))
+                          }
+                      </div>
+                      <div className="mb-4">
+                        <div className="border rounded-xl border-dashed border-custom-font h-[100px] flex flex-col justify-center items-center">
+                          <div
+                            className="flex flex-col justify-center items-center"
+                            style={{ pointerEvents: "auto" }}
+                          >
+                            <CloudinaryUploadImages
                               handleUploadSuccess={handleUploadSuccess}
                             />
                           </div>
@@ -251,7 +302,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                               />
                               <div
                                 className="absolute top-[-7px] right-[42px]"
-                                onClick={() => removeImage(imageUrl)}
+                                onClick={() => removeImage(imageUrl, "image")}
                               >
                                 <RxCrossCircled
                                   size={18}

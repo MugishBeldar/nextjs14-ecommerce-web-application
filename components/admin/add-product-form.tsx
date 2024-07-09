@@ -28,6 +28,7 @@ const AddProductForm = () => {
   const [selectedTags, setSelectedTags] = useState<string[] | []>([]);
   const [selectedKeyFeatures, setSelectedKeyFeatures] = useState<string[] | []>([]);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string[] | []>([]);
+  const [productThumbnail, setProductThumbnail] = useState<string>('');
   const { setProductsData, setToggleSheet, setCategoriesData, categoriesData } = useAppStore();
 
   useEffect(() => {
@@ -58,6 +59,12 @@ const AddProductForm = () => {
     }
   };
 
+  const handleProductThumbnail = (uploaded: any) => {
+    if (uploaded?.event === "success") {
+      setProductThumbnail(uploaded.info.url);
+    }
+  }
+
   const onSubmit = async (values: z.infer<typeof ProductSchema>) => {
     const isTagError = !selectedTags.length;
     const isKeyFeatureError = !selectedKeyFeatures.length;
@@ -75,7 +82,8 @@ const AddProductForm = () => {
           uploadedImageUrl,
           category?.id,
           tags,
-          keyFeatures
+          keyFeatures,
+          productThumbnail
         );
         if (error) {
           toast.error("Please provide a valid product data.");
@@ -89,6 +97,7 @@ const AddProductForm = () => {
           setToggleSheet(false);
         }
         setUploadedImageUrl([]);
+        setProductThumbnail('');
       }
       const response = await getProducts();
       if (response && response.length) {
@@ -109,8 +118,13 @@ const AddProductForm = () => {
     }
   };
 
-  const removeImage = async (url: string) => {
-    setUploadedImageUrl((prev) => prev.filter((item) => item !== url));
+  const removeImage = async (url: string, actionFor: string) => {
+    if (actionFor === 'thumbnail') {
+      setProductThumbnail('');
+    }
+    if (actionFor === 'image'){
+      setUploadedImageUrl((prev) => prev.filter((item) => item !== url));
+    }
   };
 
   const handleCancle = () => {
@@ -331,6 +345,45 @@ const AddProductForm = () => {
                 />
               </div>
               <div className="my-6 text-primary-txt">
+                <p className="text-custom-font">Product Thumbnail</p>
+                <div className="border rounded-xl border-dashed border-custom-font my-2 h-[100px] flex flex-col justify-center items-center">
+                  <div
+                    className="flex flex-col justify-center items-center"
+                  >
+                    <CloudinaryUploadImages
+                      handleUploadSuccess={handleProductThumbnail}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  {productThumbnail.length > 0 &&
+                    <>
+                      <div className="relative">
+                        <Image
+                          src={productThumbnail}
+                          alt="image"
+                          key={productThumbnail}
+                          width={90}
+                          height={90}
+                          loading="lazy"
+                        />
+                        <div
+                          className="absolute top-0 right-2"
+                          onClick={() => removeImage(productThumbnail, "thumbnail")}
+                        >
+                          <RxCrossCircled
+                            size={18}
+                            color="red"
+                            className="cursor-pointer"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  }
+                </div>
+              </div>
+
+              <div className="my-6 text-primary-txt">
                 <p className="text-custom-font">Product Images</p>
                 <div className="border rounded-xl border-dashed border-custom-font my-2 h-[100px] flex flex-col justify-center items-center">
                   <div
@@ -357,7 +410,7 @@ const AddProductForm = () => {
                             />
                             <div
                               className="absolute top-0 right-2"
-                              onClick={() => removeImage(imageUrl)}
+                              onClick={() => removeImage(imageUrl, 'image')}
                             >
                               <RxCrossCircled
                                 size={18}
@@ -371,6 +424,7 @@ const AddProductForm = () => {
                     })}
                 </div>
               </div>
+
             </div>
             <div className="fixed bottom-0 right-0 w-[384px] bg-surface  p-4 flex justify-end gap-4">
               <div className="w-full">

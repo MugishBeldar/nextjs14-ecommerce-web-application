@@ -44,7 +44,7 @@ const AddToCartModal = ({ productId }: AddToCartModalProps) => {
               <div className="md:flex md:justify-center md:items-center my-4 pb-4 border-b">
                 <div className="flex justify-center items-center">
                   <Image
-                    src={cartSingleProduct?.images[0]}
+                    src={cartSingleProduct?.thumbnail}
                     alt="singleproduct"
                     width={300}
                     height={200}

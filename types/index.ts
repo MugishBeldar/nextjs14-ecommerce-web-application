@@ -19,6 +19,7 @@ export interface ProductTypes {
   discount: number;
   keyFeatures: string[];
   images: string[];
+  thumbnail: string;
   tags: string[];
   categoryId: string;
   quantity: number;

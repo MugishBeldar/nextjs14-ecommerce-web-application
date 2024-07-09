@@ -73,6 +73,7 @@ model Products {
     discount    Float
     keyFeatures String[]
     images      String[]
+    thumbnail   String
     tags        String[]
     category    Categories       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     categoryId  String

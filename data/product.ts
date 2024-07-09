@@ -11,6 +11,7 @@ export const createProductDB = async ({
   images,
   discount,
   quantity,
+  thumbnail
 }: {
   productName: string;
   keyFeatures: string[];
@@ -20,6 +21,7 @@ export const createProductDB = async ({
   images: string[];
   discount: number;
   quantity: number;
+  thumbnail:string;
 }) => {
   const data = await db.products.create({
     data: {
@@ -31,6 +33,7 @@ export const createProductDB = async ({
       images,
       discount,
       quantity,
+      thumbnail
     },
   });
 };
@@ -71,7 +74,8 @@ export const updateProductDB = async (
   tags: string[],
   price: number,
   discount: number,
-  quantity: number
+  quantity: number,
+  productThumbnail: string,
 ) => {
   await db.products.update({
     where: {
@@ -86,6 +90,7 @@ export const updateProductDB = async (
       price,
       discount,
       quantity,
+      thumbnail: productThumbnail
     },
   });
 };

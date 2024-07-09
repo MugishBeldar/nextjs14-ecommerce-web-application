@@ -1,16 +1,20 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import ProductsTable from "./products-table";
 import { AddProductSideBar } from "./add-product-sidebar";
 
 const Products = () => {
-
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  
   useEffect(() => {
-    async function fetchCategories() {
-    }
-    fetchCategories();
+    setIsMounted(true);
+
   }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div className="text-primary-txt w-full">

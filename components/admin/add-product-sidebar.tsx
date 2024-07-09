@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -15,6 +15,17 @@ import { useAppStore } from "@/store";
 
 const AddProductSideBar = () => {
   const { toggleSheet, setToggleSheet } = useAppStore();
+
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   const toggleMenu = () => {
     setToggleSheet(!toggleSheet);

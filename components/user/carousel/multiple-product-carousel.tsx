@@ -55,7 +55,7 @@ const MultipleProductCarousel = ({
                           onClick={() => handleClick(product.id)}
                           loader={imageLoader}
                           alt={product.productName}
-                          src={product.images[0]}
+                          src={product.thumbnail}
                           loading="lazy"
                           layout="fill"
                           objectFit="contain"
