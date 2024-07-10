@@ -11,6 +11,17 @@ export const useAppStore = create<EcommerceAppSliceTypes>()(persist((...a) => ({
     partialize: (state) => ({
       compareProduct: state.compareProduct
     }),
+    // storage: {
+    // async getItem ( name: string ): StorageValue<unknown> {
+    // return // get from storage however you want
+    // },
+    // async setItem ( name: string, storageValue: StorageValue<unknown> ): Promise<void> {
+    // // set in storage however you want
+    // },
+    // async removeItem ( name: string ): Promise<void> {
+    // // remove/delete from storage however you want
+    // },
+    // },
   }
 ));
 
