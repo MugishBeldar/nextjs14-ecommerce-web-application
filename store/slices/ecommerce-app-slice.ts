@@ -3,12 +3,8 @@
 import {
   CategoryTypes,
   ProductTypes,
-  // ProductTypes,
-  // UserAndProfileTypes,
-  // orderTypes,
 } from "@/types";
 import { Address, User } from "@prisma/client";
-// import { User } from "@prisma/client";
 import { StateCreator } from "zustand";
 export interface EcommerceAppSliceTypes {
   // admin
@@ -18,8 +14,6 @@ export interface EcommerceAppSliceTypes {
   setProductsData: (data: ProductTypes[]) => void;
   toggleSheet?: boolean;
   setToggleSheet: (data: boolean) => void;
-  // openModal: boolean;
-  // setOpenModal: (data: boolean) => void;
   viewingProductId: string;
   setviewingProductId: (data: string) => void;
   categoriesData: CategoryTypes[] | [];
@@ -28,36 +22,14 @@ export interface EcommerceAppSliceTypes {
   setEditCategory: (data: CategoryTypes) => void;
   viewingProduct: ProductTypes | undefined;
   setViewingProduct: (data: ProductTypes) => void;
-  // searchProducts: ProductTypes[] | [];
-  // setSearchProducts: (data: ProductTypes[]) => void;
-  // viewingOrderId: string;
-  // setViewingOrderId: (data: string) => void;
-  // orders: orderTypes[] | [];
-  // setOrders: (data: orderTypes[]) => void;
   viewingCategoryId: string;
   setViewingCategoryId: (data: string) => void;
 
-  // // user
-  searchTerm? :string;
+  // user
+  searchTerm?: string;
   setSearchTerm: (data: string) => void;
   openModal?: boolean;
   setOpenModal: (data: boolean) => void;
-  // productCategory: string;
-  // setProductCategory: (data: string) => void;
-  // userProductsData: ProductTypes[] | [];
-  // setUserProductsData: (data: ProductTypes[]) => void;
-  // allCategories: CategoryTypes[] | [];
-  // setAllCategories: (data: CategoryTypes[]) => void;
-  // categoryProducts: ProductTypes[] | [];
-  // setCategoryProducts: (data: ProductTypes[]) => void;
-  // filterProducts: ProductTypes[] | [];
-  // setFilterProducts: (data: ProductTypes[]) => void;
-  // userAndProfile: UserAndProfileTypes | undefined;
-  // setUserAndProfile: (data: UserAndProfileTypes) => void;
-  // product: ProductTypes | undefined;
-  // setProduct: (data: ProductTypes) => void;
-  // sameCategoryProduct: ProductTypes[] | [];
-  // setSameCategoryProduct: (data: ProductTypes[]) => void;
   userDetails?: User | null;
   setUserDetails: (data: User) => void;
   userAddress?: Address | null;
@@ -88,10 +60,6 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   setToggleSheet: (open: boolean) => {
     set({ toggleSheet: open });
   },
-  // openModal: false,
-  // setOpenModal: (open: boolean) => {
-  //   set({ openModal: open });
-  // },
   viewingProductId: "",
   setviewingProductId: (data: string) => {
     set({ viewingProductId: data });
@@ -108,21 +76,13 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   setEditCategory: (data: CategoryTypes) => {
     set({ editCategory: data });
   },
-  // viewingOrderId: "",
-  // setViewingOrderId: (data: string) => {
-  //   set({ viewingOrderId: data });
-  // },
-  // orders: [],
-  // setOrders: (data: orderTypes[]) => {
-  //   set({ orders: data });
-  // },
   viewingCategoryId: "",
   setViewingCategoryId: (data: string) => {
     set({ viewingCategoryId: data });
   },
 
   // user
-  searchTerm:'',
+  searchTerm: '',
   setSearchTerm: (term: string) => {
     set({ searchTerm: term });
   },
@@ -130,42 +90,6 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   setOpenModal: (open: boolean) => {
     set({ openModal: open });
   },
-  // productCategory: "",
-  // setProductCategory: (data: string) => {
-  //   set({ productCategory: data });
-  // },
-  // userProductsData: [],
-  // setUserProductsData: (data: ProductTypes[]) => {
-  //   set({ userProductsData: data });
-  // },
-  // allCategories: [],
-  // setAllCategories: (data: CategoryTypes[]) => {
-  //   set({ allCategories: data });
-  // },
-  // categoryProducts: [],
-  // setCategoryProducts: (data: ProductTypes[]) => {
-  //   set({ categoryProducts: data });
-  // },
-  // filterProducts: [],
-  // setFilterProducts: (data: ProductTypes[]) => {
-  //   set({ filterProducts: data });
-  // },
-  // userAndProfile: undefined,
-  // setUserAndProfile: (data: UserAndProfileTypes) => {
-  //   set({ userAndProfile: data });
-  // },
-  // searchProducts: [],
-  // setSearchProducts: (data: ProductTypes[]) => {
-  //   set({ searchProducts: data });
-  // },
-  // product: undefined,
-  // setProduct: (data: ProductTypes) => {
-  //   set({ product: data });
-  // },
-  // sameCategoryProduct: [],
-  // setSameCategoryProduct: (data: ProductTypes[]) => {
-  //   set({ sameCategoryProduct: data });
-  // },
   userDetails: null,
   setUserDetails: (user: User) => {
     set({ userDetails: user });
@@ -175,14 +99,14 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
     set({ userAddress: address });
   },
   productCarouselImage: '',
-  setProductCarouselImage: (image: string ) => {
+  setProductCarouselImage: (image: string) => {
     set({ productCarouselImage: image });
   },
-  filterProduct:[],
+  filterProduct: [],
   setFilterProduct: (products: ProductTypes[]) => {
     set({ filterProduct: products });
   },
-  compareProduct:[],
+  compareProduct: [],
   setCompareProduct: (products: ProductTypes[]) => {
     set({ compareProduct: products });
   },

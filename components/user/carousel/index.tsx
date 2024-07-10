@@ -1,4 +1,5 @@
 import CategoryCarousel from "./categorys-carousel";
+import CompareProductCarousel from "./compare-product-carousel";
 import DealOfTheDayCarousel from "./deal-of-the-day-carousel";
 import OfferCarousel from "./offer-carousel";
 import SingleProductCarousel from "./single-product-carousel";
@@ -7,4 +8,5 @@ export {
   CategoryCarousel,
   DealOfTheDayCarousel,
   SingleProductCarousel,
+  CompareProductCarousel,
 }
