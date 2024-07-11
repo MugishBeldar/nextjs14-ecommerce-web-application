@@ -1,10 +1,13 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useAppStore } from "@/store";
-import { ProductTypes } from "@/types";
-import { IndianRupee } from "lucide-react";
+'use client';
+
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
+import { useAppStore } from "@/store";
+import { ProductTypes } from "@/types";
+
 import { Button } from "../ui/button";
 
 interface FilterProductsProps {
@@ -47,6 +50,10 @@ const FilterProducts = ({ products, setIsOpenDrawer }: FilterProductsProps) => {
   useEffect(() => {
     setSelectedForCompare(compareProduct);
   }, [compareProduct]);
+
+  useEffect(()=>{
+    setCompareProduct([])
+  },[setCompareProduct])
 
   const handleCompare = () => {
     setCompareProduct(selectedForCompare);

@@ -1,18 +1,38 @@
 "use client";
-import React, { useState } from "react";
-import { IoMenuOutline } from "react-icons/io5";
 import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { IoMenuOutline } from "react-icons/io5";
+import React, { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import {Sheet,SheetContent,SheetDescription,SheetHeader,SheetTitle,SheetTrigger } from "@/components/ui/sheet";
+import { CategoryTypes } from "@/types";
+import { getCategories } from "@/actions/category";
+
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const HeaderSheet = () => {
   const [toggle, setToggle] = useState<boolean>(false);
+  const [categories, setCategories] = useState<CategoryTypes[]>([]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    (async function () {
+      const response = await getCategories();
+      if (response?.length) {
+        setCategories(response);
+      }
+    })();
+  }, [toggle])
 
   const toggleMenu = () => {
     setToggle((prevToggle) => !prevToggle);
   };
 
+  const handleCategory = (categoryId: string) => {
+    setToggle((prevToggle) => !prevToggle);
+    router.push(`/category/${encodeURIComponent(categoryId)}`);
+  }
   return (
     <Sheet open={toggle} onOpenChange={setToggle}>
       <SheetTrigger onClick={toggleMenu}>
@@ -27,32 +47,23 @@ const HeaderSheet = () => {
             Shop by Category
           </SheetTitle>
           <SheetDescription className="text-primary-txt">
-            <div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Mobiles
-              </div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Air Conditioners
-              </div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Televisons
-              </div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Laptops
-              </div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Headphones & Earphones
-              </div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Coolers
-              </div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Home Theatres & Soundbars
-              </div>
-              <div className="text-lg font-medium my-3 cursor-pointer mx-2">
-                Mobiles
-              </div>
-            </div>
+            {
+              categories.length > 0 ?
+                <div>
+                  {
+                    categories.map(category => {
+                      return (
+                        <div key={category.id} className="text-lg font-medium my-3 cursor-pointer mx-2  hover:border-b border-b-gray-400" onClick={()=>handleCategory(category.id)}>
+                          {category.categoryName}
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+                : <div className="text-lg font-medium my-3 cursor-pointer mx-2">
+                  No categories found. Please add some categories in the admin panel.
+                </div>
+            }
           </SheetDescription>
         </SheetHeader>
       </SheetContent>

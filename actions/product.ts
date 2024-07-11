@@ -1,7 +1,6 @@
 'use server';
 
-import { createProductDB, deleteProdcutDB, getAllTagsDB, getProductDB, getProductFromIdDB, getProductFromTagDB, updateProductDB } from "@/data/product";
-import { db } from "@/lib/db";
+import { createProductDB, deleteProdcutDB, getAllTagsDB, getProductDB, getProductFromIdDB, getProductFromTagDB, getProductsFromCategoryIdDB, updateProductDB } from "@/data/product";
 import { ProductSchema } from "@/schemas";
 import { z } from "zod";
 
@@ -105,7 +104,6 @@ export const updateProduct = async (
 };
 
 
-
 export const getProductFromProductId = async (id: string) => {
   try {
     const product = await getProductFromIdDB(id);
@@ -139,21 +137,22 @@ export const getAllTags = async () => {
   }
 };
 
-// const posts = await prisma.post.findMany({
-//   where: {
-//     tags: {
-//       hasEvery: ['databases', 'typescript'],
-//     },
-//   },
-// })
 
 export const getProductsFromTag = async ({ searchField }: { searchField: string }) => {
-  console.log('getProductsFromTag ~ searchField:', searchField);
   try {
     const products = await getProductFromTagDB({ searchField});
-    console.log('products:---->', products);
     return products;
   } catch (error) {
     console.log("Error while getting products from tag", error)
+  }
+}
+
+
+export const getProductsFromCategoryId = async ({categoryId}: {categoryId: string}) => {
+  try {
+    const products = await getProductsFromCategoryIdDB({ categoryId});
+    return products;
+  } catch (error) {
+    console.log("Error while getting products from category", error)
   }
 }

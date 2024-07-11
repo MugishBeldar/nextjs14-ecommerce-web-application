@@ -75,3 +75,12 @@ export const deleteCategory = async (id: string) => {
     };
   }
 } 
+
+export const getCategoryById = async (id: string) => { 
+  try {
+    const category = await getCategoryByIdDB(id);
+    return category;
+  } catch (error) {
+    console.log('Failed to get category:--->', error)
+  }
+}
