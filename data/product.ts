@@ -39,7 +39,6 @@ export const createProductDB = async ({
 };
 
 
-
 export const getProductDB = async () => {
   return await db.products.findMany({
     include: {
@@ -109,6 +108,7 @@ export const deleteProdcutDB = async (id: string) => {
   }
 };
 
+
 export async function getAllTagsDB() {
   const tags = await db.products.findMany({
     select: {
@@ -122,6 +122,7 @@ export async function getAllTagsDB() {
   return uniqueTags;
 }
 
+
 export async function getProductFromTagDB({ searchField }: { searchField: string }) {
   try {
     const products = await db.products.findMany({
@@ -134,5 +135,19 @@ export async function getProductFromTagDB({ searchField }: { searchField: string
     return products;
   } catch (error) {
     console.log('Error while getting product from tag:---->', error);
+  }
+}
+
+
+export async function getProductsFromCategoryIdDB({categoryId}:{categoryId: string}) { 
+  try {
+    const products = await db.products.findMany({
+      where: {
+        categoryId
+      }
+    })
+    return products;
+  } catch (error) {
+    console.log('Error while getting products from category:---->', error);
   }
 }
