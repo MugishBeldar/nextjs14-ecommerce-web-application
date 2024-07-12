@@ -1,12 +1,16 @@
 'use client';
-import { Payment } from "@/components/user";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useState } from "react";
-import { getCartFromCartId } from "@/actions/cart";
-import { useSearchParams } from 'next/navigation';
-import { CartTypes } from "@/types";
+
 import axios from 'axios';
+import { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSearchParams } from 'next/navigation';
+import { Elements } from "@stripe/react-stripe-js";
+
+import { CartTypes } from "@/types";
+import { Order } from "@prisma/client";
+import { Payment } from "@/components/user";
+import { createOrder } from "@/actions/order";
+import { getCartFromCartId } from "@/actions/cart";
 import { getTotalPayableAmount } from "@/lib/utils";
 
 interface PaymentPageProps {
@@ -20,21 +24,24 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 const PaymentPage = ({ params }: PaymentPageProps) => {
   const [cartProducts, setCartProducts] = useState<CartTypes | null>(null);
   const [clientSecret, setClientSecret] = useState("");
+  const [orderDetails, setOrderDetails] = useState<Order>()
   const searchParams = useSearchParams();
+  const cartId = searchParams.get('cartId');
 
   useEffect(() => {
     const fetchCart = async () => {
-      const cartId = searchParams.get('cartId');
       if (cartId) {
         const response = await getCartFromCartId(cartId);
         if (response) {
+          const order = await createOrder({ cart: response, userId: params.userId });
+          setOrderDetails(order)
           setCartProducts(response);
         }
       }
     };
 
     fetchCart();
-  }, [searchParams]);
+  }, [cartId, params.userId]);
 
   useEffect(() => {
     if (cartProducts?.products) {
@@ -52,31 +59,21 @@ const PaymentPage = ({ params }: PaymentPageProps) => {
           setClientSecret(response.data.clientSecret);
         }
       };
-
       getClientSecret();
     }
   }, [cartProducts]);
 
   return (
-    <div>
-      {clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <Payment clientSecret={clientSecret} amount={getTotalPayableAmount({ products: cartProducts?.products || [] })} />
-        </Elements>
-      )}
+    <div className="m-6 flex justify-center items-center ">
+      <div className="w-full md:w-[800px]">
+        {clientSecret && orderDetails && (
+          <Elements stripe={stripePromise} options={{ clientSecret }} >
+            <Payment clientSecret={clientSecret} amount={getTotalPayableAmount({ products: cartProducts?.products || [] })} orderDetails={orderDetails} />
+          </Elements>
+        )}
+      </div>
     </div>
   );
 };
 
 export default PaymentPage;
-   // if (response.error) {
-    //   setErrorMessage(submitError.message);
-    //   setLoading(false);
-    //   return;
-    // }
-
-    // flow 
-    // here oreder created
-    // orderid and secret goes to the child component there client secret added
-    // default payment status pending
-    // there also added payment status success or fail (on error);

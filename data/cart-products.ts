@@ -64,3 +64,15 @@ export const createProdcutCartDB = async (
     throw error;
   }
 };
+
+export const deleteUserCartProductDB = async ({ cartId }: { cartId: string }) => {
+  try {
+    await db.cartProduct.deleteMany({
+      where: {
+        cartId
+      }
+    });
+  } catch (error) {
+    console.log("Error deleting user cart product:--->", error);
+  }
+}

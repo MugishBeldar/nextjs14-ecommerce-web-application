@@ -1,42 +1,33 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
-import {
-  useStripe,
-  useElements,
-  PaymentElement,
-} from "@stripe/react-stripe-js";
+import React, { useState } from "react";
 
-const Payment = ({ clientSecret, amount }: { clientSecret: string, amount: string }) => {
+import { Order } from "@prisma/client";
+import {useStripe,useElements,PaymentElement} from "@stripe/react-stripe-js";
+
+const Payment = ({ clientSecret, amount, orderDetails }: { clientSecret: string, amount: string, orderDetails: Order }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [errorMessage, setErrorMessage] = useState<string>();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-
     if (!stripe || !elements) {
       return;
     }
-
-    const response = await elements.submit();
-    console.log('handleSubmit ~ response:', response);
-
+    await elements.submit();
     const confirmPaymentResponse = await stripe.confirmPayment({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `http://localhost:3000/payment-success`,
+        return_url: `http://localhost:3000/payment-success/${orderDetails.id}`,
       },
     });
-    console.log('handleSubmit ~ confirmPaymentResponse:', confirmPaymentResponse)
-
     if (confirmPaymentResponse.error) {
       setErrorMessage(confirmPaymentResponse.error.message);
     }
-
     setLoading(false);
   };
 
@@ -61,7 +52,7 @@ const Payment = ({ clientSecret, amount }: { clientSecret: string, amount: strin
       {errorMessage && <div>{errorMessage}</div>}
       <button
         disabled={!stripe || loading}
-        className="text-white w-full p-5 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
+        className="text-white w-full p-4 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
       >
         {!loading ? `Pay $${amount}` : "Processing..."}
       </button>
