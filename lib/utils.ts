@@ -1,4 +1,4 @@
-import { CategoryTypes, ProductTypes } from "@/types";
+import { CartProductTypes, CategoryTypes, ProductTypes } from "@/types";
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function capitalizeEachWord(string:string) {
+export function capitalizeEachWord(string: string) {
   return string.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
 
@@ -57,7 +57,7 @@ export const filterProducts = ({
   const matchesCategoryId = categories.filter((category) => {
     return selectCategories?.includes(category.categoryName)
   }).map((category) => category.id);
-  
+
   return products.filter((product) => {
     const matchesCategory = matchesCategoryId?.length === 0 || matchesCategoryId?.includes(product.categoryId);
 
@@ -92,6 +92,21 @@ export const sortByProduct = ({
     case "Latest Arrival":
       return products.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     default:
-      return products; 
+      return products;
   }
 };
+
+export const getTotalPayableAmount = ({ products }: { products: CartProductTypes[] }) => {
+  const totalAmount = products.reduce((total, product) => total + Math.round(product.product.price - (product?.product.price * product?.product.discount) / 100), 0).toLocaleString("en-IN");
+  return totalAmount;
+}
+
+export const getTotalSavingAmount = ({ products }: { products: CartProductTypes[] }) => {
+  const savingAmount = products.reduce((total, product) => total + ((product.product?.price * product.product?.discount) / 100), 0).toLocaleString("en-IN")
+  return savingAmount;
+}
+
+export const getOriginalAmount = ({ products }: { products: CartProductTypes[] }) => {
+  const originalAmount = products.reduce((total, product) => total + product.product.price, 0).toLocaleString("us");
+  return originalAmount;
+}

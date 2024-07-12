@@ -37,7 +37,6 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
       let quantity = 1;
       setOpenModal(true);
       const response = await addToCart(user.user.id, productId, quantity);
-      console.log('handleCart ~ response:', response);
     } else {
       // router.push("/auth");
       // toast.error("Please sign in to proceed.");
@@ -102,6 +101,7 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
             <Button
               onClick={() => {
                 if (product) {
+                  console.log(product,":::::::")
                   handleAddToCart(product, product.id);
                 }
               }}

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { CartTypes } from "@/types";
 import StarRating from "./rating-stars";
@@ -9,12 +9,25 @@ import { useAuthUser } from "@/hooks/useAuthUser";
 import { getCart, removeProductFromCart } from "@/actions/cart";
 
 import { Button } from "../ui/button";
+import { getOriginalAmount, getTotalPayableAmount, getTotalSavingAmount } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Cart = () => {
   const [cart, setCart] = useState<CartTypes>();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const user = useAuthUser();
   const screenWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-  const isLargeScreen = screenWidth >= 768; 
+  const isLargeScreen = screenWidth >= 768;
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   useEffect(() => {
     async function getUserCart() {
@@ -38,6 +51,11 @@ const Cart = () => {
       // toast.success("Item removed from cart.");
     }
   };
+
+  const handleCheckout = async (cartId: string) => {
+    // router.push('/payment')
+    router.push(`/payment/${user?.user.id}` + '?' + createQueryString('cartId', `${cartId}`));
+  }
 
   return (
     <div className="w-full lg:container px-6 lg:px-0">
@@ -131,17 +149,26 @@ const Cart = () => {
               </div>
               <div className="text-end">
                 <p className="mt-4">
-                  ${cart.products && cart.products.reduce((total, product) => total + product.product.price, 0).toLocaleString("us")}
+                  ${getOriginalAmount({ products: cart.products })}
+                  {/* ${cart.products && cart.products.reduce((total, product) => total + product.product.price, 0).toLocaleString("us")} */}
                 </p>
                 <p className="my-4">
-                  -${cart.products && cart.products.reduce((total, product) => total + ((product.product?.price * product.product?.discount) / 100), 0).toLocaleString("en-IN")}
+                  -${getTotalSavingAmount({ products: cart.products })}
+                  {/* -${cart.products && cart.products.reduce((total, product) => total + ((product.product?.price * product.product?.discount) / 100), 0).toLocaleString("en-IN")} */}
                 </p>
                 <p className="my-3">
-                  ${cart.products && cart.products.reduce((total, product) => total + Math.round(product.product.price - (product.product?.price * product.product?.discount) / 100), 0).toLocaleString("en-IN")}
+                  ${getTotalPayableAmount({ products: cart.products })}
+                  {/* ${cart.products && cart.products.reduce((total, product) => total + Math.round(product.product.price - (product.product?.price * product.product?.discount) / 100), 0).toLocaleString("en-IN")} */}
                 </p>
               </div>
             </div>
-            <Button className="w-full bg-primary-btn text-lg font-medium hover:bg-primary-btn text-primary-dark py-2">
+            <Button className="w-full bg-primary-btn text-lg font-medium hover:bg-primary-btn text-primary-dark py-2"
+              onClick={() => {
+                if (cart.products) {
+                  handleCheckout(cart.id)
+                }
+              }}
+            >
               Checkout
             </Button>
           </div>

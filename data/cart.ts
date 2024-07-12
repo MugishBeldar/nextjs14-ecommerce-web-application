@@ -53,3 +53,23 @@ export const createCartDB = async (
     throw error;
   }
 };
+
+export const findCartByCartIdDB = async({cartId}:{cartId:string}) => {
+  try { 
+    const cart = await db.cart.findUnique({
+      where:{
+        id: cartId
+      },
+      include: {
+        products: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    })
+    return cart;
+  } catch (error) {
+    console.log('Error while getting cart', error);
+  }
+}
