@@ -32,7 +32,6 @@ export const createProductReviewDB = async ({ userId, productId, reviewDescripti
 };
 
 export const getProductReviewDB = async ({ productId, take, skip, page }: GetProductReviewDBProps) => {
-  console.log('getProductReviewDB ~ productId, take, skip, page:', productId, take, skip, page)
   try {
     const reviews = await db.productReviews.findMany({
       skip,

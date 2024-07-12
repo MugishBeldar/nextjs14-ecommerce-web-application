@@ -139,25 +139,24 @@ model CartProduct {
 }
 
 model Order {
-    id            String         @id @default(cuid())
-    user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId        String
-    products      OrderProduct[]
-    createdAt     DateTime       @default(now())
-    totalPrice    Float
-    totalDiscount Float
-    orderStatus   String
-    paymentStatus String
+  id             String         @id @default(cuid())
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  createdAt      DateTime       @default(now())
+  totalPrice     Float
+  paymentStatus  String
+  orderProducts  OrderProduct[]
 }
 
 model OrderProduct {
-    id        String   @id @default(cuid())
-    order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-    orderId   String
-    product   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
-    productId String
-    quantity  Int
+  id         String     @id @default(cuid())
+  order      Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId    String
+  product    Products    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  String
+  quantity   Int
 }
+
 
 model Address {
     id                             String  @id @default(cuid())

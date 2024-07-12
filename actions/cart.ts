@@ -1,6 +1,6 @@
 'use server';
 
-import { createCartDB, findCartByUserIdDB  } from "@/data/cart";
+import { createCartDB, findCartByCartIdDB, findCartByUserIdDB  } from "@/data/cart";
 import { createProdcutCartDB, findProductInCartDB, updateProductCartDB } from "@/data/cart-products";
 import { db } from "@/lib/db";
 
@@ -71,3 +71,17 @@ export async function removeProductFromCart(userId: string, productId: string) {
     console.error("Error removing product from cart:", error);
   }
 }
+
+export const getCartFromCartId = async (cartId: string) => {
+  try {
+    if (cartId) {
+      const cart = await findCartByCartIdDB({cartId});
+      if (cart) {
+        return cart;
+      }
+    }
+    return null;
+  } catch (error) {
+    console.log("Error while getting cart", error);
+  }
+};
