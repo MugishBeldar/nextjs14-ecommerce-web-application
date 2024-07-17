@@ -26,7 +26,7 @@ export const updateOrderPaymentStatusDB = async ({ id, paymentStatus }: { id: st
   }
 }
 
-export const getOrderDetailsDB = async ({ orderId }: { orderId: string }) => { 
+export const getOrderDetailsDB = async ({ orderId }: { orderId: string }) => {
   try {
     const order = await db.order.findUnique({
       where: { id: orderId },
@@ -37,5 +37,46 @@ export const getOrderDetailsDB = async ({ orderId }: { orderId: string }) => {
     return order;
   } catch (error) {
     console.log('Error getting order details:--->', error);
+  }
+}
+
+export const getOrdersDB = async () => {
+  try {
+    const orders = await db.order.findMany({
+      include: {
+        user: true,
+        orderProducts: {
+          include: {
+            product: true
+          }
+        },
+        _count: true,
+      }
+    });
+    return orders;
+  } catch (error) {
+    console.log('Error getting orders:--->', error);
+  }
+}
+
+export const getOrderFromOrderIdDB = async ({ orderId }: { orderId: string }) => {
+  try {
+    const order = await db.order.findFirst({
+      where: {
+        id: orderId
+      },
+      include: {
+        user: true,
+        orderProducts: {
+          include: {
+            product: true
+          }
+        },
+        _count: true,
+      }
+    })
+    return order;
+  } catch (error) {
+    console.log('Error getting order:--->', error);
   }
 }

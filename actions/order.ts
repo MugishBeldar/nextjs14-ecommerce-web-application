@@ -2,7 +2,7 @@
 
 import { findCartByUserIdDB } from "@/data/cart";
 import { deleteUserCartProductDB } from "@/data/cart-products";
-import { createOrderDB, getOrderDetailsDB, updateOrderPaymentStatusDB } from "@/data/order";
+import { createOrderDB, getOrderDetailsDB, getOrderFromOrderIdDB, getOrdersDB, updateOrderPaymentStatusDB } from "@/data/order";
 import { createOrderProductDB } from "@/data/order-product";
 import { getTotalPayableAmount } from "@/lib/utils";
 import { CartTypes } from "@/types";
@@ -43,5 +43,26 @@ export const updateOrderPaymentStatus = async ({ orderId }: { orderId: string })
     }
   } catch (error) {
     console.log('Error updating order payment status:--->', error);
+  }
+}
+
+
+export const getOrders = async () => {
+  try {
+    const orders = await getOrdersDB();
+    return orders;
+  } catch (error) {
+    console.log("Error while getting orders:--->", error);
+  }
+};
+
+
+export const getOrderFromOrderId = async ({orderId}:{orderId:string}) => {
+  try { 
+    console.log('getOrderFromOrderId ~ orderId:', orderId)
+    const order = await getOrderFromOrderIdDB({ orderId });
+    return order;
+  } catch (error) {
+    console.log('Error while getting order:--->', error);
   }
 }

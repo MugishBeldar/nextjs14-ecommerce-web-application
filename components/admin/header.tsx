@@ -2,8 +2,6 @@
 
 import { useAppStore } from "@/store";
 import { Button } from "../ui/button";
-import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useAuthUser } from "@/hooks/useAuthUser";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -17,6 +15,7 @@ const Header = () => {
 
   useEffect(() => {
      if(user) {
+      // @ts-ignore
       setAdminDetails(user)
      }
   }, [user]);

@@ -1,0 +1,71 @@
+{
+    "id": "clynywsed001iw71wrk1qlpj9",
+    "userId": "clyic6f4h000011h67ysvn2xk",
+    "createdAt": "2024-07-16T05:23:24.230Z", //  order details
+    "totalPrice": 9000, // order details
+    "paymentStatus": "Success", // order details
+    "user": {
+        "id": "clyic6f4h000011h67ysvn2xk",
+        "title": null,
+        "firstName": null,
+        "middleName": null,
+        "lastName": null,
+        "gender": null,
+        "name": "mugish beldar", // customer details
+        "email": "mugishbeldar333@gmail.com", // customer details
+        "image": "https://lh3.googleusercontent.com/a/ACg8ocLmCvH9WwnL7LtLkj1PuXaXHpbvxFr9a17iPJW4BpKdgf2-7aAE=s96-c", // customer details also add shipping address
+        "emailVerified": null,
+        "role": "USER",
+        "createdAt": "2024-07-12T06:48:11.538Z",
+        "updatedAt": "2024-07-12T06:48:11.538Z"
+    },
+    "orderProducts": [
+        {
+            "id": "clynywsei001kw71w4mjd9i0g",
+            "orderId": "clynywsed001iw71wrk1qlpj9",
+            "productId": "clyece6as0003r1fjve4od4tx",
+            "quantity": 1,
+            "product": {
+                "id": "clyece6as0003r1fjve4od4tx",
+                "productName": "OnePlus Nord CE4 5G (8GB RAM, 256GB, Marble)", // ordered item details
+                "price": 10000, // order item details
+                "discount": 10,
+                "keyFeatures": [
+                    "Display: 6.74 inches (17.11 cm), AMOLED, 120 Hz Refresh Rate",
+                    "Memory: 8GB RAM, 256GB ROM, MicroSDXC Card (Hybrid)",
+                    "Processor: Qualcomm Snapdragon 7+ Gen 3 (4 nm), Octa Core, 2.4 GHz",
+                    "Camera: 50 MP + 8 MP Dual Rear & 16 MP Front Camera",
+                    " Battery: 5500 mAh with 100W Fast Charging",
+                    "USP: Stereo Speakers, Glass Front, Plastic Frame"
+                ],
+                "images": [
+                    "http://res.cloudinary.com/dmozedfqu/image/upload/v1720525369/hnkmgyxa3vaqzpipjbqd.png",
+                    "http://res.cloudinary.com/dmozedfqu/image/upload/v1720525369/mnhnxazm1mq8jkjywrqd.png",
+                    "http://res.cloudinary.com/dmozedfqu/image/upload/v1720525369/na6uzqqnmnp37l7jabfy.png",
+                    "http://res.cloudinary.com/dmozedfqu/image/upload/v1720525370/cn5gijmjyxk8wdjzluk8.png",
+                    "http://res.cloudinary.com/dmozedfqu/image/upload/v1720525370/i7jgabjners1ruihefj6.png"
+                ],
+                "thumbnail": "http://res.cloudinary.com/dmozedfqu/image/upload/v1720525359/mcj9lye8irjribewyw9g.png", // order item details
+                "tags": [
+                    "mobile",
+                    "one plus",
+                    "android",
+                    "5g",
+                    "smart phone",
+                    "OnePlus Nord CE4 5G (8GB RAM, 256GB, Marble)",
+                    "nord",
+                    "ce4 5g",
+                    "8gb ram",
+                    "25gb"
+                ],
+                "categoryId": "cly6xoivf000111gyqc5l7o4m",
+                "quantity": 12,
+                "createdAt": "2024-07-09T11:43:08.628Z",
+                "updatedAt": "2024-07-09T11:43:08.628Z"
+            }
+        }
+    ],
+    "_count": {
+        "orderProducts": 1
+    }
+}

@@ -1,13 +1,15 @@
-import Categories from "./categories";
-import DashBoard from "./dashboard";
-import Header from "./header";
-import Products from "./prodcuts";
 import Side from "./sidebar";
+import Header from "./header";
+import Orders from "./order";
+import Products from "./prodcuts";
+import DashBoard from "./dashboard";
+import Categories from "./categories";
+
 export {
-  DashBoard,
   Side,
   Header,
-  Categories,
+  Orders,
   Products,
-  
+  DashBoard,
+  Categories,
 }

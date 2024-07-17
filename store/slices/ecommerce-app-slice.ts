@@ -2,6 +2,7 @@
 // import { Address, User } from "@prisma/client";
 import {
   CategoryTypes,
+  OrderTypes,
   ProductTypes,
 } from "@/types";
 import { Address, User } from "@prisma/client";
@@ -24,6 +25,12 @@ export interface EcommerceAppSliceTypes {
   setViewingProduct: (data: ProductTypes) => void;
   viewingCategoryId: string;
   setViewingCategoryId: (data: string) => void;
+  ordersData: OrderTypes[] | [];
+  setOrdersData: (data:any) => void;
+  viewingOrderId: string;
+  setviewingOrderId: (data: string) => void;
+  viewingOrder: OrderTypes | null;
+  setViewingOrder: (data: OrderTypes) => void;
 
   // user
   searchTerm?: string;
@@ -79,6 +86,18 @@ const createEcommerceAppSlice: StateCreator<EcommerceAppSliceTypes> = (
   viewingCategoryId: "",
   setViewingCategoryId: (data: string) => {
     set({ viewingCategoryId: data });
+  },
+  ordersData: [],
+  setOrdersData: (data: OrderTypes[]) => {
+    set({ ordersData: data });
+  },
+  viewingOrderId: "",
+  setviewingOrderId: (data: string) => {
+    set({ viewingOrderId: data });
+  },
+  viewingOrder: null,
+  setViewingOrder: (data: OrderTypes) => {
+    set({ viewingOrder: data });
   },
 
   // user
