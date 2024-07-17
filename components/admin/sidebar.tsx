@@ -2,9 +2,7 @@
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store";
 import { LuLogOut, LuShoppingBag } from "react-icons/lu";
-import { GoDotFill } from "react-icons/go";
 import { RxDashboard } from "react-icons/rx";
-import { FiShoppingCart } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { BsCartCheck } from "react-icons/bs";
@@ -12,7 +10,6 @@ import {
   Sidebar,
   Menu,
   MenuItem,
-  SubMenu,
   sidebarClasses,
 } from "react-pro-sidebar";
 import { signOut } from "next-auth/react";
@@ -23,7 +20,7 @@ const Side = () => {
   const pathname = usePathname();
   const [selectedItem, setSelectedItem] = useState("/admin/dashboard");
   const [toggled, setToggled] = useState(false);
-  const { collapsSidbar, setCollapsSidbar } = useAppStore();
+  const { collapsSidbar } = useAppStore();
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {

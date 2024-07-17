@@ -101,7 +101,6 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
             <Button
               onClick={() => {
                 if (product) {
-                  console.log(product,":::::::")
                   handleAddToCart(product, product.id);
                 }
               }}

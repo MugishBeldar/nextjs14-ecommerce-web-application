@@ -14,14 +14,14 @@ export default async function RootLayout({
     <html lang="en">
       <body className="w-full">
         <div className="flex w-full bg-[#1D1E24]">
-          <div className="sticky top-0 h-screen">
+          <div className="sticky top-0 ">
             <Side />
           </div>
           <div className="flex flex-col w-full overflow-y-auto">
             <div className="w-full border-b py-1 border-secondary-black mt-2">
               <Header />
             </div>
-            <div className="flex-1">{children}</div>
+            <div className="">{children}</div>
           </div>
         </div>
       </body>

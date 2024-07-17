@@ -51,7 +51,6 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
     async function getDbProducts() {
       const response = await getProducts();
       if (response && response.length > 0) {
-        // @ts-ignore
         setProductsData(response);
       }
     }
@@ -160,7 +159,7 @@ const ProductsTable = ({ products }: ProductsTableProps) => {
                       key={item.id}
                       className="hover:bg-primary-background text-primary-txt font-light  border-b-secondary-black cursor-pointer"
                     >
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>{(((currentPage-1)*10)+index+1)}</TableCell>
                       <TableCell className="">{item.productName}</TableCell>
                       <TableCell className="">
                         ${item.price.toLocaleString('us')}

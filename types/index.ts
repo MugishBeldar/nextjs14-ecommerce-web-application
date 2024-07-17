@@ -1,16 +1,17 @@
+import { Order, OrderProduct, Products, User, admin_user } from "@prisma/client";
 
 export interface AdminType {
-  user: User;
+  user: admin_user;
   expires: string;
 }
-export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  status: boolean;
-}
+// export interface User {
+//   id: string;
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   password: string;
+//   status: boolean;
+// }
 
 export interface ProductTypes {
   id: string;
@@ -69,4 +70,47 @@ export interface CartProductTypes {
   productId: string;
   quantity: number;
   product: ProductTypes;
+}
+
+
+
+
+
+
+
+
+export interface OrderTypes {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  totalPrice: number;
+  paymentStatus: string;
+  user: User;
+  orderProducts?: (OrderProductsEntity)[] | null;
+  _count: Count;
+}
+
+export interface OrderProductsEntity {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  product: ProductTypes;
+}
+// export interface Product {
+//   id: string;
+//   productName: string;
+//   price: number;
+//   discount: number;
+//   keyFeatures?: (string)[] | null;
+//   images?: (string)[] | null;
+//   thumbnail: string;
+//   tags?: (string)[] | null;
+//   categoryId: string;
+//   quantity: number;
+//   createdAt: string;
+//   updatedAt: string;
+// }
+export interface Count {
+  orderProducts: number;
 }
