@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import MultipleProductCarousel from "./multiple-product-carousel";
 
 import { dealOfTheDay } from "@/data/products";
-import { getProducts } from "@/actions/product";
+import { getLastTopFiveProductsByCreatedAt } from "@/actions/product";
 import { ProductTypes } from "@/types";
 
 const DealOfTheDayCarousel = () => {
   const [dealOfthDay, setDealOfthDay] = useState<ProductTypes[] | []>([]);
   useEffect(()=>{
     (async function() {
-      const response = await getProducts();
+      const response = await getLastTopFiveProductsByCreatedAt();
       if(response?.length) {
         setDealOfthDay(response);
       }

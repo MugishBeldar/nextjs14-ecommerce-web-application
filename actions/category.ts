@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 
-import { createCategoryDB, getCetgoryByNameDB, getAllCategoryDB, getAllCategorisWithProductCountDB, getCategoryByIdDB, updateCategoryDB, deleteCategoryDB } from "@/data/category";
+import { createCategoryDB, getCetgoryByNameDB, getAllCategoryDB, getAllCategorisWithProductCountDB, getCategoryByIdDB, updateCategoryDB, deleteCategoryDB, getTopFiveProductFromCategoryIdDB } from "@/data/category";
 import { CategorySchema } from "@/schemas";
 
 export const createCategory = async (
@@ -82,5 +82,15 @@ export const getCategoryById = async (id: string) => {
     return category;
   } catch (error) {
     console.log('Failed to get category:--->', error)
+  }
+}
+
+
+export const getTopFiveProductFromCategoryId = async (id: string) => {
+  try {
+    const products = await getTopFiveProductFromCategoryIdDB(id);
+    return products;
+  } catch (error) {
+    console.log('Failed to get topFiveProductFromCategory:--->', error);
   }
 }

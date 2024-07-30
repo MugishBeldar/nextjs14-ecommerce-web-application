@@ -71,3 +71,22 @@ export const deleteCategoryDB = async (id: string) => {
     throw error;
   }
 };
+
+export const getTopFiveProductFromCategoryIdDB = async (id: string) => {
+  try {
+    const products = await db.products.findMany({
+      where: {
+        categoryId: id,
+      },
+      include: {
+        category: true,
+        carts: true,
+        wishlist: true,
+      },
+      take: 10,
+    });
+    return products;
+  } catch (error) {
+    console.log('Error getting topFiveProductFromCategory:--->', error);
+  }
+}

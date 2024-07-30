@@ -8,8 +8,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 // import { DealOfTheDayTypes } from "@/types";
-import { IndianRupee, X } from "lucide-react";
-import { FaHeart } from "react-icons/fa";
 // import { StarRating } from "../rating-stars";
 import { useParams, useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
@@ -46,9 +44,6 @@ const MultipleProductCarousel = ({
                   className="basis-1/2 sm:basis-1/2 md:basis-1/2 lg:basis-1/4  mx-3 "
                 >
                   <div className="relative flex flex-col px-4 py-5 sm:p-6 border rounded-lg cursor-pointer">
-                    <div className="absolute text-red-400 flex justify-end w-full ml-[-50px]">
-                      <FaHeart size={22} className="cursor-pointer" />
-                    </div>
                     <div className="w-full flex-1 text-primary-txt">
                       <div className="relative h-[200px] inline-flex justify-center mt-10 rounded-lg w-full">
                         <Image

@@ -51,7 +51,7 @@ export const getProductDB = async () => {
 
 
 export const getProductFromIdDB = async (id: string) => {
-  return await db.products.findFirst({
+  const product = await db.products.findFirst({
     where: {
       id,
     },
@@ -61,6 +61,7 @@ export const getProductFromIdDB = async (id: string) => {
       wishlist: true,
     }
   });
+  return product;
 };
 
 
@@ -151,3 +152,17 @@ export async function getProductsFromCategoryIdDB({categoryId}:{categoryId: stri
     console.log('Error while getting products from category:---->', error);
   }
 }
+
+export const getLastTopFiveProductsByCreatedAtDB = async () => {
+  return await db.products.findMany({
+    include: {
+      category: true,
+      carts: true,
+      wishlist: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: 10,
+  });
+};

@@ -1,6 +1,6 @@
 'use server';
 
-import { createProductDB, deleteProdcutDB, getAllTagsDB, getProductDB, getProductFromIdDB, getProductFromTagDB, getProductsFromCategoryIdDB, updateProductDB } from "@/data/product";
+import { createProductDB, deleteProdcutDB, getAllTagsDB, getLastTopFiveProductsByCreatedAtDB, getProductDB, getProductFromIdDB, getProductFromTagDB, getProductsFromCategoryIdDB, updateProductDB } from "@/data/product";
 import { ProductSchema } from "@/schemas";
 import { z } from "zod";
 
@@ -154,5 +154,15 @@ export const getProductsFromCategoryId = async ({categoryId}: {categoryId: strin
     return products;
   } catch (error) {
     console.log("Error while getting products from category", error)
+  }
+}
+
+export const getLastTopFiveProductsByCreatedAt = async() => {
+  try {
+    const products = await getLastTopFiveProductsByCreatedAtDB();
+    return products;
+
+  } catch (error) {
+    console.log('Error while getting last five products ', error)
   }
 }

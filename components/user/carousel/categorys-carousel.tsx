@@ -6,12 +6,30 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/image";
-import { categoryImages } from "@/data/category-images";
+import { useEffect, useState } from "react";
+import { getCategories } from "@/actions/category";
+import { CategoryTypes } from "@/types";
+import { useRouter } from "next/navigation";
 
 const CategoryCarousel = () => {
+  const [categories, setCategories] = useState<CategoryTypes[]>([]);
+
+  const router = useRouter();
+  useEffect(() => {
+    (async function () {
+      const response = await getCategories();
+      if (response?.length) {
+        setCategories(response);
+      }
+    })();
+  }, [])
+
+  const handleCategory = (categoryId: string) => {
+    router.push(`/category/${encodeURIComponent(categoryId)}`);
+  }
+
   return (
-    <div className="w-full px-6 lg:container lg:px-0 mt-4">
+    categories && <div className="w-full px-6 lg:container lg:px-0 my-4 ">
       <Carousel
         className="w-full"
         opts={{
@@ -19,22 +37,13 @@ const CategoryCarousel = () => {
         }}
       >
         <CarouselContent className="w-full flex">
-          {categoryImages.map(({ id, image }) => (
+          {categories.map(({ categoryName, id }) => (
             <CarouselItem
+              onClick={()=>handleCategory(id)}
               key={id}
-              className="flex-none mr-4 basis-1/2 sm:basis-1/3 md:basis-1/3 lg:basis-1/4 "
+              className="flex justify-center items-center mr-4 basis-1/2 sm:basis-1/3 sm:text-sm md:basis-1/3 md:py-4 md:text-base lg:basis-1/4 border border-zinc-500/70 text-center  bg-zinc-600  rounded-xl "
             >
-              <div className="rounded-full shadow-md overflow-hidden">
-                <div className="relative h-[150px] w-[200px] lg:h-[230px] lg:w-[294px] ">
-                  <Image
-                    src={image}
-                    alt="logo-maker"
-                    layout="fill"
-                    objectFit="contain"
-                    className="rounded-full"
-                  />
-                </div>
-              </div>
+              <div className="text-primary-txt text-2xl " >{categoryName}</div>
             </CarouselItem>
           ))}
         </CarouselContent>

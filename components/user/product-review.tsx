@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { z } from "zod";
 import {
   Form,
@@ -19,7 +19,10 @@ import { ReviewSchema } from "@/schemas";
 import { FormError } from "./form/form-error";
 import { FormSuccess } from "./form/form-success";
 import { useAuthUser } from "@/hooks/useAuthUser";
-import { createProductReview, getProductReview } from "@/actions/product-review";
+import {
+  createProductReview,
+  getProductReview,
+} from "@/actions/product-review";
 import { capitalizeEachWord } from "@/lib/utils";
 
 interface ProductReviewsProps {
@@ -34,26 +37,28 @@ const ProductReview = ({ productId }: ProductReviewsProps) => {
   const [totalReviews, setTotalReviews] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const user = useAuthUser();
-  let page = 1;
+  const [page, setPage] = useState<number>(1);
+
   const loadMoreReviews = async (pageNumber: number) => {
     try {
       const take = 5;
       const skip = (pageNumber - 1) * take;
       const response = await getProductReview(productId, take, skip, pageNumber);
       const newReviews = response.reviews;
-      const updatedReviews = [...reviews, ...newReviews];
-      setReviews(updatedReviews);
+      setReviews((prevReviews) => [...prevReviews, ...newReviews]);
       setTotalReviews(response.totalReviews);
-      setHasMore(response.totalReviews > updatedReviews.length);
+      setHasMore(response.totalReviews > reviews.length + newReviews.length);
     } catch (error) {
-      console.error('Error loading reviews:', error);
+      console.error("Error loading reviews:", error);
       setHasMore(false);
     }
   };
 
   useEffect(() => {
-    loadMoreReviews(page);
-  }, [productId]); 
+    setPage(1);
+    setReviews([]);
+    loadMoreReviews(1);
+  }, [productId]);
 
   const form = useForm({
     resolver: zodResolver(ReviewSchema),
@@ -67,16 +72,21 @@ const ProductReview = ({ productId }: ProductReviewsProps) => {
   const onSubmit = async (data: z.infer<typeof ReviewSchema>) => {
     try {
       if (user?.user) {
-        const { error, success } = await createProductReview(data, user.user.id, productId);
+        const { error, success } = await createProductReview(
+          data,
+          user.user.id,
+          productId
+        );
         if (success) {
           setSuccess("Review submitted successfully!");
+          loadMoreReviews(1); // Refresh reviews after submitting
         } else {
           setError("Failed to submit review. Please try again.");
         }
       }
     } catch (err) {
       setError("Failed to submit review. Please try again.");
-    } 
+    }
   };
 
   const handleClick = () => {
@@ -86,36 +96,50 @@ const ProductReview = ({ productId }: ProductReviewsProps) => {
   return (
     <div className="px-6 lg:container lg:px-0 text-primary-txt">
       <p className="text-2xl md:text-4xl font-bold">Product Reviews</p>
-      <div className="rounded-md bg-secondary-dark py-1 my-3">
-        {reviews.map((review, index) => (
-          <div key={index} className="px-4 my-6 ">
-            <div className="flex gap-3">
-              <Avatar>
-                <AvatarImage src={review.user?.image} />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="text-xl font-medium">{capitalizeEachWord(review.user.name)}</p>
-                <p className="mt-2 font-light ">{review.description}</p>
+      {reviews.length > 0 ? (
+        <div className="rounded-md bg-secondary-dark py-1 my-3">
+          {reviews.map((review, index) => (
+            <div key={index} className="px-4 my-6">
+              <div className="flex gap-3">
+                <Avatar>
+                  <AvatarImage src={review.user?.image} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-xl font-medium">
+                    {capitalizeEachWord(review.user.name)}
+                  </p>
+                  <p className="mt-2 font-light ">{review.description}</p>
+                </div>
               </div>
             </div>
-
+          ))}
+          <div className="text-custom-font text-center py-3">
+            {hasMore ? (
+              <p
+                className="hover:underline cursor-pointer"
+                onClick={() => {
+                  setPage((prevPage) => prevPage + 1);
+                  loadMoreReviews(page + 1);
+                }}
+              >
+                Load More...
+              </p>
+            ) : (
+              <p>All Reviews Are Fetched!</p>
+            )}
           </div>
-        ))}
-        <div className="text-custom-font text-center pb-3 ">
-          {hasMore ? (
-            <p className="hover:underline cursor-pointer" onClick={()=>{loadMoreReviews(page+1)}}>Load More...</p>
-          ) : (
-            <p>All Reviews Are Fetched!</p>
-          )}
         </div>
+      ) : (
+      <div className="rounded-md bg-secondary-dark py-4 my-3 text-custom-font text-center">
+        <p>No reviews available for this product.</p>
       </div>
-      {/* </InfiniteScroll> */}
+      )}
       <div
         className="cursor-pointer px-2 py-4 rounded-lg bg-primary-btn w-36 mb-4"
         onClick={handleClick}
       >
-        <p className="text-primary-dark font-medium"> Write a Review</p>
+        <p className="text-primary-dark font-medium">Write a Review</p>
       </div>
       {writeReview && (
         <div>

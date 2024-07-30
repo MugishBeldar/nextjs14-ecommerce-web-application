@@ -1,4 +1,5 @@
 import { ProductReview, SingleProduct } from "@/components/user";
+import { SimilarProducts } from "@/components/user/carousel";
 
 interface SingleProductPageProps {
   params: {
@@ -10,7 +11,7 @@ const SingleProductPage = ({ params }: SingleProductPageProps) => {
     <div>
       <SingleProduct productId={params.productId} />
       <ProductReview productId={params.productId}/>
-      {/* <SimilarProducts /> */}
+      <SimilarProducts productId = {params.productId} />
     </div>
   );
 };
