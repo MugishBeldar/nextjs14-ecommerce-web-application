@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { useAppStore } from "@/store";
 import "../../style/edit-product-modal.css";
 import { imageLoader } from "@/lib/image-loader";
-import { capitalizeEachWord, cn } from "@/lib/utils";
+import { capitalizeEachWord, cn, makeSecureUrl } from "@/lib/utils";
 import { getOrderFromOrderId } from "@/actions/order";
 
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
@@ -134,7 +134,7 @@ const OrderModal = ({ setOrderModal, orderModal }: OrderModalProps) => {
                                     <Image
                                       loader={imageLoader}
                                       alt="product-image..."
-                                      src={orderProduct?.product.thumbnail}
+                                      src={makeSecureUrl(orderProduct?.product.thumbnail)}
                                       loading="lazy"
                                       layout="fill"
                                       objectFit="contain"

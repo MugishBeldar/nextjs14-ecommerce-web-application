@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { offerImage } from "@/data/offer-images";
+import { makeSecureUrl } from "@/lib/utils";
 
 const OfferCarousel = () => {
   const plugin = React.useRef(

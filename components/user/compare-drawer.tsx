@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { X, Plus } from "lucide-react";
 import { CompareModal } from "./modal";
+import { makeSecureUrl } from "@/lib/utils";
 interface CompareDrawerProps {
   isOpenDrawer: boolean;
   setIsOpenDrawer: Dispatch<SetStateAction<boolean>>;
@@ -50,7 +51,7 @@ const CompareDrawer = ({
                       </div>
                       <div className="flex justify-center items-center my-3">
                         <Image
-                          src={compareProduct[index].thumbnail}
+                          src={makeSecureUrl(compareProduct[index].thumbnail)}
                           alt="Product Image"
                           width={100}
                           height={100}

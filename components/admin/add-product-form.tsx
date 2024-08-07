@@ -21,6 +21,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { makeSecureUrl } from "@/lib/utils";
 
 const AddProductForm = () => {
   const [tagError, setTagError] = useState<boolean>(false);
@@ -360,7 +361,7 @@ const AddProductForm = () => {
                     <>
                       <div className="relative">
                         <Image
-                          src={productThumbnail}
+                          src={makeSecureUrl(productThumbnail)}
                           alt="image"
                           key={productThumbnail}
                           width={90}
@@ -401,7 +402,7 @@ const AddProductForm = () => {
                         <>
                           <div className="relative">
                             <Image
-                              src={imageUrl}
+                              src={makeSecureUrl(imageUrl)}
                               alt="image"
                               key={index}
                               width={90}

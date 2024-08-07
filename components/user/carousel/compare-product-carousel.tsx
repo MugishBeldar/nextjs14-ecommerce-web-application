@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import { ProductTypes } from "@/types";
 import StarRating from "../rating-stars";
 import { useRouter } from "next/navigation";
+import { makeSecureUrl } from "@/lib/utils";
 
 const CompareProductCarousel = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const CompareProductCarousel = () => {
                   </div>
                   <div className="flex justify-center items-center cursor-pointer" onClick={() => router.push(`/product/${product.id}}`)}>
                     <Image
-                      src={product.thumbnail}
+                      src={makeSecureUrl(product.thumbnail)}
                       alt="singleproduct"
                       width={300}
                       height={300}

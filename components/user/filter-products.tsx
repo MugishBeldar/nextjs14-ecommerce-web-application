@@ -9,6 +9,7 @@ import { useAppStore } from "@/store";
 import { ProductTypes } from "@/types";
 
 import { Button } from "../ui/button";
+import { makeSecureUrl } from "@/lib/utils";
 
 interface FilterProductsProps {
   products: ProductTypes[];
@@ -95,7 +96,7 @@ const FilterProducts = ({ products, setIsOpenDrawer }: FilterProductsProps) => {
                 </div>
 
                 <Image
-                  src={product.thumbnail}
+                  src={makeSecureUrl(product.thumbnail)}
                   alt="Product Image"
                   width={270}
                   height={270}

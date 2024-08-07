@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { imageLoader } from "@/lib/image-loader";
 import { useAppStore } from "@/store";
+import { makeSecureUrl } from "@/lib/utils";
 
 interface SingleProductCarouselProps {
   externalArrow: boolean;
@@ -44,7 +45,7 @@ export function SingleProductCarousel({
                   }}
                   loader={imageLoader}
                   alt="sub-image"
-                  src={image}
+                  src={makeSecureUrl(image)}
                   loading="lazy"
                   layout="fill"
                   objectFit="contain"

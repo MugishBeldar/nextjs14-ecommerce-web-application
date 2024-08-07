@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import CloudinaryUploadImages from "../cloudinary-upload-images";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { makeSecureUrl } from "@/lib/utils";
 
 interface ProductModalProps {
   setProductModal: Dispatch<SetStateAction<boolean>>;
@@ -257,7 +258,7 @@ const ProductModal = ({ setProductModal, productModal }: ProductModalProps) => {
                           // images.map((imageUrl, index) => (
                             <div key={productThumbnail} className="relative">
                               <Image
-                                src={productThumbnail}
+                                src={makeSecureUrl(productThumbnail)}
                                 alt="image"
                                 width={90}
                                 height={90}

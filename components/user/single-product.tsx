@@ -13,6 +13,7 @@ import { SingleProductCarousel } from "./carousel";
 import { getProductFromProductId } from "@/actions/product";
 
 import { Button } from "../ui/button";
+import { makeSecureUrl } from "@/lib/utils";
 interface SingleProductProps {
   productId: string;
 }
@@ -55,7 +56,7 @@ const SingleProduct = ({ productId }: SingleProductProps) => {
           </div>
           <div className="relative w-[300px] h-[400px] flex justify-center items-center">
             <Image
-              src={productCarouselImage?.length ? productCarouselImage : product.thumbnail}
+              src={productCarouselImage?.length ? makeSecureUrl(productCarouselImage) : makeSecureUrl(product.thumbnail)}
               alt="singleproduct"
               loading="lazy"
               layout="fill"

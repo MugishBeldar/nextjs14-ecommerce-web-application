@@ -11,6 +11,7 @@ import { ProductTypes } from "@/types";
 import { Button } from "@/components/ui/button";
 import { DialogTitle} from "@radix-ui/react-dialog";
 import {Dialog,DialogContent,DialogDescription,DialogHeader} from "@/components/ui/dialog";
+import { makeSecureUrl } from "@/lib/utils";
 
 interface AddToCartModalProps {
   productId: string;
@@ -44,7 +45,7 @@ const AddToCartModal = ({ productId }: AddToCartModalProps) => {
               <div className="md:flex md:justify-center md:items-center my-4 pb-4 border-b">
                 <div className="flex justify-center items-center">
                   <Image
-                    src={cartSingleProduct?.thumbnail}
+                    src={makeSecureUrl(cartSingleProduct?.thumbnail)}
                     alt="singleproduct"
                     width={300}
                     height={200}

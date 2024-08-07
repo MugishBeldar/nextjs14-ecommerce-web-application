@@ -110,3 +110,8 @@ export const getOriginalAmount = ({ products }: { products: CartProductTypes[] }
   const originalAmount = products.reduce((total, product) => total + product.product.price, 0).toLocaleString("us");
   return originalAmount;
 }
+
+export const makeSecureUrl = (url: string) => {
+  const splittedUrl = url.split(':');
+  return `${splittedUrl[0]}s:${splittedUrl[1]}`;
+}

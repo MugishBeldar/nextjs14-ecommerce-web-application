@@ -14,6 +14,7 @@ import { useAppStore } from "@/store";
 import { ProductTypes } from "@/types";
 import StarRating from "../rating-stars";
 import { imageLoader } from "@/lib/image-loader";
+import { makeSecureUrl } from "@/lib/utils";
 interface MultipleProductCarouselPropes {
   products?: ProductTypes[] | [];
 }
@@ -50,7 +51,7 @@ const MultipleProductCarousel = ({
                           onClick={() => handleClick(product.id)}
                           loader={imageLoader}
                           alt={product.productName}
-                          src={product.thumbnail}
+                          src={makeSecureUrl(product.thumbnail)}
                           loading="lazy"
                           layout="fill"
                           objectFit="contain"

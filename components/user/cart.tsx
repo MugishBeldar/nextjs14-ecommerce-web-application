@@ -9,7 +9,7 @@ import { useAuthUser } from "@/hooks/useAuthUser";
 import { getCart, removeProductFromCart } from "@/actions/cart";
 
 import { Button } from "../ui/button";
-import { getOriginalAmount, getTotalPayableAmount, getTotalSavingAmount } from "@/lib/utils";
+import { getOriginalAmount, getTotalPayableAmount, getTotalSavingAmount, makeSecureUrl } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const Cart = () => {
@@ -83,7 +83,7 @@ const Cart = () => {
                 <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
                   <div className="w-[170px] h-[170px] md:col-span-1">
                     <Image
-                      src={product.product.thumbnail}
+                      src={makeSecureUrl(product.product.thumbnail)}
                       alt={product.product.productName}
                       width={300}
                       height={350}
