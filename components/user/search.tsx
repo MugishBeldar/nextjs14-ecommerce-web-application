@@ -79,7 +79,7 @@ const Search = () => {
   };
 
   return (
-    <div className="relative ">
+    <div className="relative mb-5 md:mb-0">
       <Input
         ref={inputRef}
         onChange={(e) => setSearchTerm(e.target.value)}
